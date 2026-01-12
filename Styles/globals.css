@@ -1,0 +1,169 @@
+/* Плавный скролл по якорям */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Хедер */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: transparent;
+}
+
+/* Навигация */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 50px;
+}
+
+/* Ссылки слева */
+.navLinks {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.navLinks a,
+.phone {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.navLinks a:hover {
+  opacity: 1;
+}
+
+/* Телефон справа */
+.phone {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* === БАЗА === */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+/* === ОСНОВНОЙ КОНТЕНТ === */
+.page {
+  width: 100%;
+}
+
+/* Общий отступ для текстового контента */
+section {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/* Чтобы якоря не прятались под хедер */
+section {
+  scroll-margin-top: 100px;
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: url("/images/hero.jpg") center / cover no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+/* затемнение, как на обложке */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding-left: 50px;
+  max-width: 900px;
+  color: #fff;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.hero-title {
+  font-size: 96px;
+  line-height: 1;
+  font-weight: 700;
+  margin: 0 0 40px;
+}
+
+/* Кнопки */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+}
+
+/* Общие кнопки */
+.btn {
+  padding: 16px 28px;
+  font-size: 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Контурная */
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Заливка */
+.btn-filled {
+  background: #fff;
+  color: #000;
+  border: none;
+}
+
+.btn-filled:hover {
+  opacity: 0.85;
+}

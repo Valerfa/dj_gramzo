@@ -1,0 +1,149 @@
+/* [project]/styles/globals.css [app-client] (css) */
+.header {
+  z-index: 100;
+  background: none;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.nav {
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 50px;
+  display: flex;
+}
+
+.navLinks {
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.navLinks a {
+  color: #fff;
+  opacity: .9;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+
+.navLinks a, .phone {
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.navLinks a:hover {
+  opacity: 1;
+}
+
+.phone {
+  color: #fff;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #111;
+  background: #fff;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.page {
+  width: 100%;
+}
+
+section {
+  padding-left: 50px;
+  padding-right: 50px;
+  scroll-margin-top: 100px;
+}
+
+.hero {
+  background: url("/images/hero.jpg") center / cover no-repeat;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+.hero:before {
+  content: "";
+  background: #00000059;
+  position: absolute;
+  inset: 0;
+}
+
+.hero-content {
+  z-index: 1;
+  color: #fff;
+  max-width: 900px;
+  padding-left: 50px;
+  position: relative;
+}
+
+.hero-subtitle {
+  opacity: .9;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.hero-title {
+  margin: 0 0 40px;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hero-actions {
+  gap: 20px;
+  display: flex;
+}
+
+.btn {
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 16px 28px;
+  font-size: 16px;
+  transition: all .2s;
+}
+
+.btn-outline {
+  color: #fff;
+  background: none;
+  border: 2px solid #fff;
+}
+
+.btn-outline:hover {
+  color: #000;
+  background: #fff;
+}
+
+.btn-filled {
+  color: #000;
+  background: #fff;
+  border: none;
+}
+
+.btn-filled:hover {
+  opacity: .85;
+}
+
+/*# sourceMappingURL=styles_globals_9fb35f7d.css.map*/
