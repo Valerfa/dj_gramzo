@@ -1,4 +1,12 @@
+@import "https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;700&display=swap";
 /* [project]/styles/globals.css [app-client] (css) */
+:root {
+  --color-light: #f3ede6;
+  --color-dark: #1b1d22;
+  --color-accent: #ce543a;
+}
+
 .header {
   z-index: 100;
   background: none;
@@ -24,17 +32,17 @@
 }
 
 .navLinks a {
-  color: #fff;
+  color: var(--color-light);
   opacity: .9;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 500;
   text-decoration: none;
   transition: opacity .2s;
 }
 
 .navLinks a, .phone {
-  color: #fff;
-  font-size: 16px;
+  color: var(--color-light);
+  font-size: 18px;
   text-decoration: none;
 }
 
@@ -43,9 +51,10 @@
 }
 
 .phone {
-  color: #fff;
+  color: var(--color-light);
   white-space: nowrap;
-  font-size: 16px;
+  cursor: pointer;
+  font-size: 18px;
   font-weight: 500;
   text-decoration: none;
 }
@@ -62,7 +71,7 @@ body {
   color: #111;
   background: #fff;
   margin: 0;
-  font-family: sans-serif;
+  font-family: Roboto Condensed, sans-serif;
 }
 
 .page {
@@ -76,40 +85,59 @@ section {
 }
 
 .hero {
-  background: url("/images/hero.jpg") center / cover no-repeat;
   align-items: center;
   width: 100%;
   height: 100vh;
+  padding-top: 160px;
   display: flex;
   position: relative;
 }
 
-.hero:before {
-  content: "";
-  background: #00000059;
+.hero-bg {
+  object-fit: cover;
+  object-position: center;
   position: absolute;
   inset: 0;
 }
 
+.hero-bg-desktop {
+  display: block;
+}
+
+.hero-bg-mobile {
+  display: none;
+}
+
 .hero-content {
   z-index: 1;
-  color: #fff;
   max-width: 900px;
-  padding-left: 50px;
+  color: var(--color-light);
   position: relative;
 }
 
 .hero-subtitle {
-  opacity: .9;
-  margin-bottom: 16px;
-  font-size: 20px;
+  margin-bottom: 4px;
+  font-family: Unbounded, sans-serif;
+  font-size: 32px;
+  line-height: 1;
 }
 
-.hero-title {
-  margin: 0 0 40px;
-  font-size: 96px;
-  font-weight: 700;
+.title-second-name {
+  color: var(--color-light);
+  margin: 0 0 20px;
+  font-family: Unbounded, sans-serif;
+  font-size: 180px;
+  font-weight: 500;
   line-height: 1;
+}
+
+.title-first-name {
+  color: var(--color-light);
+  margin: 0 0 4px;
+  font-family: Unbounded, sans-serif;
+  font-size: 132px;
+  font-weight: 500;
+  line-height: .8;
 }
 
 .hero-actions {
@@ -119,31 +147,122 @@ section {
 
 .btn {
   cursor: pointer;
-  border-radius: 999px;
-  padding: 16px 28px;
+  border-radius: 16px;
+  padding: 16px 36px;
+  font-family: Unbounded, sans-serif;
   font-size: 16px;
+  font-weight: 400;
   transition: all .2s;
 }
 
 .btn-outline {
-  color: #fff;
-  background: none;
-  border: 2px solid #fff;
+  background: var(--color-dark);
+  color: var(--color-light);
+  border: 3px solid var(--color-light);
 }
 
 .btn-outline:hover {
-  color: #000;
-  background: #fff;
+  background: var(--color-light);
+  color: var(--color-dark);
 }
 
 .btn-filled {
-  color: #000;
-  background: #fff;
-  border: none;
+  background: var(--color-light);
+  color: var(--color-dark);
+  border: 3px solid var(--color-light);
 }
 
 .btn-filled:hover {
-  opacity: .85;
+  background: var(--color-accent);
+  color: var(--color-light);
+  border: 3px solid var(--color-accent);
+}
+
+.marquee {
+  z-index: 2;
+  background: #ce543a33;
+  padding: 4px 0;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.marquee-content {
+  white-space: nowrap;
+  animation: 15s linear infinite marquee;
+  display: flex;
+}
+
+.marquee-content span {
+  color: #ce543a;
+  padding-right: 120px;
+  font-family: Unbounded, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .header, .hero-bg-desktop {
+    display: none;
+  }
+
+  .hero-bg-mobile {
+    display: block;
+  }
+
+  .hero {
+    align-items: flex-end;
+    padding-bottom: 80px;
+  }
+
+  .hero-content {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .hero-subtitle {
+    font-family: Unbounded, sans-serif;
+    font-size: 24px;
+  }
+
+  .title-first-name {
+    font-size: 60px;
+  }
+
+  .title-second-name {
+    margin-bottom: 30px;
+    font-size: 80px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 16px 10px;
+    font-size: 14px;
+  }
+
+  section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 /*# sourceMappingURL=styles_globals_9fb35f7d.css.map*/
