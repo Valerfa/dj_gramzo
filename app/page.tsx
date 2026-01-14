@@ -1,21 +1,18 @@
+import About from "@/components/About";
 import Hero from "../components/Hero";
-
+import Gallery from "@/components/Gallery";
+import Work from "@/components/Work";
+import Reviews from "@/components/Reviews";
+import Footer from "@/components/Footer";
+  
 export default function HomePage() {
   return (
     <>
       <Hero />
-
-      <section id="about">
-        <h2>Обо мне</h2>
-      </section>
-
-      <section id="reviews">
-        <h2>Отзывы</h2>
-      </section>
-
-      <section id="contacts">
-        <h2>Контакты</h2>
-      </section>
+      <About/>
+      <Gallery />
+      <Work />
+      <Footer/>
     </>
   );
 }
