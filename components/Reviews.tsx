@@ -47,11 +47,11 @@ function ReviewBubble({
           "max-w-[620px]",
           "rounded-2xl",
           "px-6 py-5",
-          "bg-[#BF6651] text-white",
+          "bg-[#BF6651] text-light",
           "shadow-sm",
         ].join(" ")}
       >
-        <p className="text-xs md:text-md leading-relaxed whitespace-pre-line">{text}</p>
+        <p className="text-xs md:text-md leading-relaxed lightspace-pre-line">{text}</p>
 
         {author && (
           <div className="mt-3 text-[10px] opacity-70">{author}</div>

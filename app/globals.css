@@ -103,6 +103,8 @@ section {
   display: flex;
   align-items: center;
   padding-top: 160px;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-bg {
@@ -160,13 +162,21 @@ section {
 
 /* Общие кнопки */
 .btn {
-  padding: 16px 36px;
+  display: inline-flex;              /* важно */
+  align-items: center;               /* вертикальное выравнивание */
+  justify-content: center;           /* центрирование содержимого */
+  gap: 8px;  
+  height: 54px;          /* строгая высота */
+  padding: 0 36px;       /* только по бокам */
+  box-sizing: border-box;
   font-family: 'Unbounded', sans-serif;
   font-size: 16px;
   font-weight: 400;
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
+  line-height: 1;  
+  
 }
 
 /* Кнопка "Связаться" */
@@ -190,8 +200,23 @@ section {
 
 .btn-filled:hover {
   background: var(--color-accent);
-  color: var(--color-light);
-  border: 3px solid var(--color-accent);
+  color: var(--color-light); /* ← и текст, и иконка */
+  border-color: var(--color-accent);
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.btn-filled img {
+  filter: brightness(0) saturate(100%);
+  transition: filter 0.2s ease;
+}
+
+.btn-filled:hover img {
+  filter: brightness(0) invert(1);
 }
 
 /* === ABOUT === */
@@ -337,7 +362,8 @@ section {
   .btn {
     width: 100%;
     font-size: 14px;
-    padding: 16px 10px;
+    padding: 10px;
+    height: 48px;
   }
   
   section {
@@ -442,4 +468,33 @@ section {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE/Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.success-icon {
+  color: #000;
+}
+
+.success-circle {
+  stroke-dasharray: 214;
+  stroke-dashoffset: 214;
+  animation: circle-draw 0.6s ease-out forwards;
+}
+
+.success-check {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: check-draw 0.4s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes circle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }

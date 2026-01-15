@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CTA() {
   return (
     <section className="w-full bg-[#F0EAE3] py-16">
@@ -5,7 +7,7 @@ export default function CTA() {
         {/* Заголовок (2 строки) */}
         <h2 className="text-center font-semibold" style={{ fontFamily: 'Unbounded, sans-serif' }}>
           <div className="text-black text-2xl md:text-3xl lg:text-4xl">
-            хотите узнать
+            Хотите узнать
           </div>
           <div className="text-black text-2xl md:text-3xl lg:text-4xl">
             свободную дату?
@@ -13,14 +15,16 @@ export default function CTA() {
         </h2>
 
         {/* Подзаголовок */}
-        <p className="text-center text-black/60 text-lg md:text-xl lg:text-2xl mt-4">
+        <p className="text-center text-black/60 text-md md:text-lg lg:text-xl mt-2 mb-4">
           Расскажите подробнее о вашем мероприятии
         </p>
 
         {/* Кнопка */}
-        <button className="bg-black text-white px-8 py-4 rounded-full text-lg md:text-xl lg:text-2xl font-medium transition-all duration-200 hover:scale-105 hover:bg-black/90">
-          Заполнить анкету
-        </button>
+        <Link href="/questionnaire">
+          <button className="btn bg-accent text-light px-8 py-4 rounded-xl hover:bg-black">
+            Заполнить анкету
+          </button>
+        </Link>
       </div>
     </section>
   );

@@ -1,7 +1,15 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
-
+import VideoPopup from "./VideoPopup";
+import playIcon from "@/public/icons/play.svg";
+import ContactPopup from "./ContactPopup";
 export default function Hero() {
+  const [contactOpen, setContactOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
+    <>
     <section className="hero">
       {/* desktop */}
       <Image
@@ -35,9 +43,19 @@ export default function Hero() {
         </h1>
 
         <div className="hero-actions">
-          <button className="btn btn-outline">Связаться</button>
-          <button className="btn btn-filled">Смотреть промо-видео</button>
-        </div>
+          <button 
+          className="btn btn-outline"
+          onClick={() => setContactOpen(true)}
+          type="button">Заказать звонок</button>
+          <button
+  className="btn btn-filled"
+  type="button"
+  onClick={() => setVideoOpen(true)}
+>
+  <img src="/icons/play.svg" alt="" className="icon" />
+  Смотреть промо-видео
+</button>
+</div>
       </div>
 
       <div className="marquee">
@@ -51,6 +69,14 @@ export default function Hero() {
           <span>Озвучка частных и корпоративных мероприятий</span>
         </div>
       </div>
+      
     </section>
+<ContactPopup open={contactOpen} onClose={() => setContactOpen(false)} />
+    <VideoPopup
+  open={videoOpen}
+  onClose={() => setVideoOpen(false)}
+  url="https://vk.com/video_ext.php?oid=133332239&id=456239310&autoplay=1"
+/>
+</>
   );
 }

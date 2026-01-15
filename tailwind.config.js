@@ -7,9 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        white: "#FFFFFF",
+        whitesoft: "#fbfbfb",
         black: "#1B1D22",
         beige: "#F0EBE4",
-        white: "#F3EDE6",
+        light: "#F3EDE6",
         accent: "#CE543A",
       },
     },

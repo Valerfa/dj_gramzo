@@ -1,0 +1,19 @@
+# env файлы
+.env
+.env.local
+
+# node
+node_modules/
+
+# сборка
+.next/
+dist/
+build/
+
+# логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store

@@ -38,7 +38,7 @@ export function Modal({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: "min(560px, 100%)",
-          background: "white",
+          background: "light",
           borderRadius: 16,
           padding: 20,
         }}

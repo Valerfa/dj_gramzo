@@ -114,7 +114,7 @@ export default function GallerySlider() {
                   "h-[400px]",
                   // ширина зависит от ориентации (чтобы выглядело как “плашки” на рефе)
                   s.kind === "v" ? "w-[320px]" : "w-[520px]",
-                  "bg-white/10",
+                  "bg-light/10",
                   "backdrop-blur-[2px]",
                   "overflow-hidden",
                 ].join(" ")}
