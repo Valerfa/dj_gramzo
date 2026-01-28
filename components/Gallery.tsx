@@ -153,7 +153,7 @@ export default function GallerySlider() {
     {/* ПОДПИСЬ */}
     <div
   className="
-    absolute bottom-0 left-0
+    absolute bottom-3 left-3
     bg-white/10 backdrop-blur-sm
     rounded-lg
     p-4

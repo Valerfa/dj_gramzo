@@ -1082,6 +1082,22 @@ img, video {
   z-index: 2001;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-30 {
+  z-index: 30;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
 .m-0 {
   margin: 0;
 }
