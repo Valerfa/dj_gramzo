@@ -2,9 +2,42 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
+import Image from "next/image";
 
 type ContactMethod = "phone" | "telegram" | "whatsapp";
+
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+
+  // если пользователь начал с 8 → заменяем на 7
+  let normalized = digits;
+  if (normalized.startsWith("8")) {
+    normalized = "7" + normalized.slice(1);
+  }
+
+  // ограничиваем 11 цифрами
+  normalized = normalized.slice(0, 11);
+
+  let result = "+7";
+
+  if (normalized.length > 1) {
+    result += " (" + normalized.slice(1, 4);
+  }
+  if (normalized.length >= 4) {
+    result += ")";
+  }
+  if (normalized.length >= 5) {
+    result += " " + normalized.slice(4, 7);
+  }
+  if (normalized.length >= 8) {
+    result += "-" + normalized.slice(7, 9);
+  }
+  if (normalized.length >= 10) {
+    result += "-" + normalized.slice(9, 11);
+  }
+
+  return result;
+}
 
 export default function QuestionnairePage() {
   const [form, setForm] = useState({
@@ -84,11 +117,66 @@ function isValidPhone(phone: string) {
 
 
   return (
-    <main className="bg-white px-4 md:px-10 py-16 max-w-3xl mx-auto space-y-5">
-      
+    <main className="min-h-screen bg-white md:flex">
+  <Link
+  href="/"
+  className="
+    fixed top-4 left-4 z-50
+    md:top-6 md:left-6
+  "
+>
+  <Image
+    src="/icons/logo.svg"
+    alt="Логотип"
+    width={36}
+    height={36}
+    priority
+  />
+</Link>
+<Link
+  href="/"
+  className="
+    fixed bottom-4 left-4 z-50
+    md:bottom-6 md:left-6
+    inline-flex items-center justify-center
+    h-12 px-6
+    rounded-lg
+    bg-black text-white text-sm font-medium
+    hover:bg-white hover:text-black transition
+  "
+>
+  ← Назад
+</Link>
+  {/* ===== ЛЕВАЯ КОЛОНКА С ФОТО ===== */}
+  <div className="relative w-full h-[33vh] md:hidden">
+  <Image
+    src="/images/konstantin-1.JPG"
+    alt="Константин"
+    fill
+    priority
+    className="object-cover"
+  />
+</div>
+<aside className="hidden md:block md:w-1/3">
+  <div className="sticky top-0 h-screen">
+    <Image
+      src="/images/konstantin-1.JPG"
+      alt="Константин"
+      fill
+      priority
+      className="object-cover"
+    />
+  </div>
+</aside>
+
+  {/* ===== ПРАВАЯ КОЛОНКА С АНКЕТОЙ ===== */}
+  <section className="w-full md:w-2/3 px-4 md:px-10 py-16 overflow-y-auto">
+    
+    <div className="max-w-3xl mx-auto space-y-5">
+
       {/* ===== БЛОК 1. С ФОТО ===== */}
       <section className="space-y-2">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
+        <h1 className="title text-2xl md:text-4xl text-center mb-8">
           Прошу вас ответить на несколько вопросов о вашем торжестве
         </h1>
 
@@ -109,7 +197,7 @@ function isValidPhone(phone: string) {
 
       {/* ===== БЛОК 2. ДАТА ===== */}
       <section className="space-y-2">
-        <h2 className="text-2xl font-semibold">Дата мероприятия?</h2>
+        <h2 className="title text-lg text-black">Дата мероприятия?</h2>
 
         <input
           type="date"
@@ -135,7 +223,7 @@ function isValidPhone(phone: string) {
 
       {/* ===== БЛОК 3. ПРОГРАММА ===== */}
       <section className="space-y-1">
-        <h2 className="text-2xl font-semibold">
+        <h2 className="title text-lg text-black">
           Планируется ли развлекательная программа?
         </h2>
 
@@ -165,8 +253,8 @@ function isValidPhone(phone: string) {
 
       {/* ===== БЛОК 4. СПОСОБ СВЯЗИ ===== */}
       <section className="space-y-2">
-        <h2 className="text-2xl font-semibold">
-          Укажите удобный способ для связи
+        <h2 className="title text-lg text-black">
+          Удобный способ связи
         </h2>
 
         <div className="flex gap-6">
@@ -183,17 +271,16 @@ function isValidPhone(phone: string) {
 </div>
 
 
-        <input
-  placeholder={
-    form.contactMethod === "phone"
-      ? "Телефон"
-      : form.contactMethod === "telegram"
-      ? "Telegram @username"
-      : "WhatsApp номер"
-  }
+  <input
+  inputMode="tel"
+  placeholder="+7 (999) 999-99-99"
   value={form.contactDetails}
   onChange={(e) => {
-    updateField("contactDetails", e.target.value);
+    if (form.contactMethod === "phone") {
+      updateField("contactDetails", formatPhone(e.target.value));
+    } else {
+      updateField("contactDetails", e.target.value);
+    }
     if (phoneError) setPhoneError("");
   }}
   className={`w-full h-14 rounded-xl border px-6 ${
@@ -207,18 +294,18 @@ function isValidPhone(phone: string) {
   </p>
 )}
       </section>
-<label className="mt-4 flex items-start gap-3 text-xs">
+<label className="mt-4 flex items-center gap-3 text-xs">
   <input
     type="checkbox"
     checked={consent}
     onChange={(e) => setConsent(e.target.checked)}
-    className="mt-1 h-5 w-5 accent-black"
+    className="h-5 w-5 accent-black"
   />
   <span className="leading-snug">
     Я даю согласие на обработку персональных данных в соответствии с{" "}
     <Link
       href="/privacy"
-      className="underline underline-offset-2 hover:opacity-70"
+      className="underline underline-offset-2 hover:text-accent/70 text-accent"
     >
       Политикой конфиденциальности
     </Link>
@@ -236,6 +323,8 @@ function isValidPhone(phone: string) {
 >
   Отправить анкету
 </button>
-    </main>
+     </div>
+  </section>
+</main>
   );
 }

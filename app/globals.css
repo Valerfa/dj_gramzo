@@ -18,12 +18,16 @@ html {
 
 /* Хедер */
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  z-index: 100;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  transition: background 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.header--scrolled {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 /* Навигация */
@@ -31,7 +35,6 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 50px;
 }
 
 /* Ссылки слева */
@@ -152,6 +155,18 @@ section {
   font-weight: 500;
   margin: 0 0 16px;
   color: var(--color-light);
+}
+
+.title {
+  font-family: 'Unbounded', sans-serif;
+  line-height: 0.8;
+  font-weight: 500;
+}
+
+.subtitle {
+  font-family: 'Unbounded', sans-serif;
+  line-height: 0.8;
+  font-weight: 400;
 }
 
 /* Кнопки */
@@ -305,9 +320,6 @@ section {
 
 /* === MEDIA QUERIES === */
 @media (max-width: 768px) {
-  .header {
-    display: none;
-  }
   
   .hero-bg-desktop {
     display: none;
@@ -363,7 +375,7 @@ section {
     width: 100%;
     font-size: 14px;
     padding: 10px;
-    height: 48px;
+    height: 54px;
   }
   
   section {
