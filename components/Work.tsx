@@ -31,7 +31,7 @@ export default function Benefits() {
       <div className="mx-2 md:mx-12">
         <h2 className="title-standart text-center">// Как я работаю </h2>
         <p className="text-sm md:text-xl opacity-50 text-center uppercase mb-6 lg:mb-12">Что вы получаете, выбирая меня диджеем на мероприятие</p>
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {items.map((it) => (
             <div
               key={it.n}

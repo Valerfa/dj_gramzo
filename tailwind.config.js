@@ -14,8 +14,12 @@ module.exports = {
         light: "#F3EDE6",
         accent: "#CE543A",
       },
+      fontFamily: {
+        unbounded: ["var(--font-unbounded)"],
+        "roboto-condensed": ["var(--font-roboto-condensed)"],
+        "open-sans": ["var(--font-open-sans)"],
+      },
     },
   },
   plugins: [],
 };
-

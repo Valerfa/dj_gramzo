@@ -3,79 +3,275 @@
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 
+
 type Slide = {
   id: string;
-  src: string;
+  frames: string[];
   alt: string;
-  caption: string;
-  date: string,
-  kind: "h" | "v"; // horizontal / vertical
+  kind: "h" | "v";
+  label: string;
+  labelPosition: string; 
 };
 
 const slides: Slide[] = [
-  { id: "01", src: "/images/01.jpg", alt: "Диджей и ведущий", kind: "h", caption: "Озвучиваю корпоратив в Москве", date: "2024 г."},
-  { id: "02", src: "/images/02.jpg", alt: "Диджей за пультом", kind: "v", caption: "Играю DJ-сет в клубе в Иваново", date: "2022 г."},
-  { id: "03", src: "/images/03.jpg", alt: "Fuckup Event", kind: "h", caption: "На мероприятии \"FUCKUP EVENT ИСТОРИИ\"", date: "2025 г." },
-  { id: "10", src: "/images/10.jpg", alt: "Диджей в наушниках", kind: "v", caption: "Камерный день рождения в Питере", date: "2025 г." },
-  { id: "06", src: "/images/06.jpg", alt: "День рождения Чайханы", kind: "v", caption: "10 лет ресторану \"Чайхана\"", date: "2025 г." },
-  { id: "04", src: "/images/04.jpg", alt: "Школа диджеев", kind: "h", caption: "Выпускной в школе диджеев", date: "2021 г." },
-  { id: "09", src: "/images/09.jpg", alt: "Диджей за работой", kind: "v", caption: "Озвучиваю свадьбу", date: "2024 г." },
-  { id: "07", src: "/images/07.jpg", alt: "Студийное фото", kind: "v", caption: "Фотосессия с ведущими Алексеем и Еленой", date: "2025 г." },
-  { id: "05", src: "/images/05.jpg", alt: "Диджей за пультом", kind: "h", caption: "Играю DJ-сет в клубе во Владимире", date: "2025 г." },
-  
-  
-  
+  {
+    id: "01",
+    kind: "h",
+    alt: "Диджей и ведущий",
+    label: "Озвучиваю корпоративные мероприятия",
+    labelPosition: "bottom-4 right-4",
+    frames: [
+      "/images/photo-1.jpg",
+      "/images/photo-1-1.jpg",
+      "/images/photo-1-2.jpg",
+      "/images/photo-1-3.jpg",
+      "/images/photo-1-4.jpg",
+      "/images/photo-1-5.jpg",
+    ],
+  },
+  {
+    id: "02",
+    kind: "v",
+    alt: "Диджей за пультом",
+    label: "Провожу DJ-сеты на вечеринках и в ночных клубах",
+    labelPosition: "top-4 left-4",
+    frames: [
+      "/images/photo-2.jpg",
+      "/images/photo-2-1.jpg",
+      "/images/photo-2-2.jpg",
+      "/images/photo-2-3.jpg",
+      "/images/photo-2-4.jpg",
+      "/images/photo-2-5.jpg",
+      "/images/photo-2-6.jpg",
+      "/images/photo-2-7.jpg",
+    ],
+  },
+  {
+    id: "03",
+    kind: "h",
+    alt: "Fuckup Event",
+    label: "Посещаю мероприятия для сотрудников Event-сферы",
+    labelPosition: "bottom-4 right-4",
+    frames: [
+      "/images/photo-3.jpg",
+      "/images/photo-3-1.jpg",
+      "/images/photo-3-2.jpg",
+      "/images/photo-3-3.jpg",
+      "/images/photo-3-4.jpg",
+    ],
+  },
+  {
+    id: "04",
+    kind: "v",
+    alt: "Камерный день рождения в Питере",
+    label: "Озвучиваю камерные мероприятия",
+    labelPosition: "top-4 right-4",
+    frames: [
+      "/images/photo-4.jpg",
+      "/images/photo-4-1.jpg",
+      "/images/photo-4-2.jpg",
+      "/images/photo-4-3.jpg",
+      "/images/photo-4-4.jpg",
+      "/images/photo-4-5.jpg",
+      "/images/photo-4-6.jpg",
+    ],
+  },
+  {
+    id: "05",
+    kind: "v",
+    alt: "10 лет ресторану Чайхана",
+    label: "Организую техническое обеспечение любых площадок",
+    labelPosition: "bottom-4 left-4",
+    frames: [
+      "/images/photo-5.jpg",
+      "/images/photo-5-1.jpg",
+      "/images/photo-5-2.jpg",
+      "/images/photo-5-3.jpg",
+      "/images/photo-5-4.jpg",
+      "/images/photo-5-5.jpg",
+    ],
+  },
+  {
+    id: "06",
+    kind: "h",
+    alt: "Выпускной в школе диджеев",
+    label: "Прохожу обучения и пробую новые форматы мероприятий",
+    labelPosition: "bottom-6 right-6",
+    frames: [
+      "/images/photo-6.jpg",
+      "/images/photo-6-1.jpg",
+      "/images/photo-6-2.jpg",
+      "/images/photo-6-3.jpg",
+      "/images/photo-6-4.jpg",
+      "/images/photo-6-5.jpg",
+    ],
+  },
+  {
+    id: "07",
+    kind: "v",
+    alt: "Озвучиваю свадьбу",
+    label: "Озвучиваю свадебные вечера и церемонии",
+    labelPosition: "top-4 right-4",
+    frames: [
+      "/images/photo-7.jpg",
+      "/images/photo-7-1.jpg",
+      "/images/photo-7-2.jpg",
+      "/images/photo-7-3.jpg",
+      "/images/photo-7-4.jpg",
+      "/images/photo-7-5.jpg",
+    ],
+  },
+  {
+    id: "08",
+    kind: "v",
+    alt: "Фотосессия с ведущими",
+    label: "Дружу и сотрудничаю с крутыми профи Event-индустрии",
+    labelPosition: "bottom-4 left-4",
+    frames: [
+      "/images/photo-8.jpg",
+      "/images/photo-8-1.jpg",
+      "/images/photo-8-2.jpg",
+      "/images/photo-8-3.jpg",
+      "/images/photo-8-4.jpg",
+    ],
+  },
 ];
+
+function GalleryItem({ slide }: { slide: Slide }) {
+  const [frame, setFrame] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+
+  function startHover() {
+    // на мобиле hover не нужен
+    if (window.innerWidth < 768) return;
+    if (timerRef.current) return;
+
+    timerRef.current = setInterval(() => {
+      setFrame((i) => (i + 1) % slide.frames.length);
+    }, 200);
+  }
+
+  function stopHover() {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    setFrame(0);
+  }
+
+  return (
+  <div
+  className={[
+    "relative shrink-0",
+    "h-[400px]",
+    slide.kind === "v" ? "w-[320px]" : "w-[520px]",
+    "overflow-visible",
+  ].join(" ")}
+  onMouseEnter={startHover}
+  onMouseLeave={stopHover}
+>
+    {/* КАРТИНКА */}
+   <div className="relative w-full h-full rounded-xl overflow-hidden bg-light/10 backdrop-blur-[2px]">
+  <Image
+    src={slide.frames[frame]}
+    alt={slide.alt}
+    fill
+    className="object-cover transition-opacity duration-200"
+    sizes="(max-width: 768px) 85vw, 520px"
+    draggable={false}
+  />
+</div>
+
+    {/* ПЛАШКА */}
+   <div
+  className={[
+    "absolute",
+    slide.labelPosition,
+    "p-4 w-36",
+    "rounded-xl",
+    "bg-black ",
+    "text-xs text-beige",
+    "z-20",
+    "pointer-events-none",
+  ].join(" ")}
+>
+  {slide.label}
+</div>
+  </div>
+);
+}
+
+
 
 export default function GallerySlider() {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [isDown, setIsDown] = useState(false);
   const startX = useRef(0);
   const startScrollLeft = useRef(0);
-
+  const directionRef = useRef<1 | -1>(1);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+const [showCursor, setShowCursor] = useState(false);
+  
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    const el = scrollerRef.current;
-    if (!el) return;
+  const el = scrollerRef.current;
+  if (!el) return;
 
-    setIsDown(true);
-    el.setPointerCapture(e.pointerId);
+  setIsDown(true);
+  el.setPointerCapture(e.pointerId);
 
-    startX.current = e.clientX;
-    startScrollLeft.current = el.scrollLeft;
-  }
+  startX.current = e.clientX;
+  startScrollLeft.current = el.scrollLeft;
+}
 
   function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    const el = scrollerRef.current;
-    if (!el || !isDown) return;
+  const el = scrollerRef.current;
+  if (!el || !isDown) return;
 
-    const dx = e.clientX - startX.current;
-    el.scrollLeft = startScrollLeft.current - dx;
-  }
+  const dx = e.clientX - startX.current;
+  el.scrollLeft = startScrollLeft.current - dx;
+
+  // определяем направление для автоскролла
+  directionRef.current = dx > 0 ? -1 : 1;
+}
 
   function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
-    const el = scrollerRef.current;
-    if (!el) return;
+  const el = scrollerRef.current;
+  if (!el) return;
 
-    setIsDown(false);
-    try {
-      el.releasePointerCapture(e.pointerId);
-    } catch {}
-  }
+  setIsDown(false);
+
+  try {
+    el.releasePointerCapture(e.pointerId);
+  } catch {}
+}
+
+function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+  setCursorPos({
+    x: e.clientX,
+    y: e.clientY,
+  });
+}
 
   useEffect(() => {
   const el = scrollerRef.current;
   if (!el) return;
 
   let rafId: number;
-  const speed = 0.9; // ← скорость (меньше = медленнее)
+  const speed = 0.9;
 
   const autoScroll = () => {
     if (!isDown) {
-      el.scrollLeft += speed;
+      const maxScroll = el.scrollWidth - el.clientWidth;
 
-      // если дошли до конца — начинаем сначала
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
-        el.scrollLeft = 0;
+      el.scrollLeft += speed * directionRef.current;
+
+      if (el.scrollLeft >= maxScroll) {
+        directionRef.current = -1;
+      }
+
+      if (el.scrollLeft <= 0) {
+        directionRef.current = 1;
       }
     }
 
@@ -83,25 +279,14 @@ export default function GallerySlider() {
   };
 
   rafId = requestAnimationFrame(autoScroll);
-
   return () => cancelAnimationFrame(rafId);
 }, [isDown]);
 
+
+
   return (
-    <section id="gallery" className="relative w-full">
-      {/* Background */}
-      <div className="absolute inset-0 bg-black">
-        <Image
-          src="/images/12.jpg"
-          alt="Фон галереи"
-          fill
-          priority
-          className="object-cover grayscale"
-          sizes="100vw"
-        />
-        {/* Transparent overlay */}
-        <div className="absolute inset-0 bg-beige" />
-      </div>
+    <section id="gallery" className="relative w-full bg-black">
+  
 
       {/* Высота блока */}
       <div className="w-full">
@@ -111,76 +296,60 @@ export default function GallerySlider() {
         {/* Лента */}
         <div className="w-full">
           <div
-            ref={scrollerRef}
-            className={[
-              "no-scrollbar",
-              "flex items-center gap-2",
-              "overflow-x-auto overflow-y-hidden",
-              "select-none",
-              "cursor-grab active:cursor-grabbing",
-              "scroll-smooth",
-              "pb-6",
-            ].join(" ")}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-          >
+  ref={scrollerRef}
+  className="
+    no-scrollbar
+    flex items-center gap-4
+    overflow-x-auto overflow-y-visible
+    cursor-none
+    select-none
+    py-4
+  "
+  onPointerDown={onPointerDown}
+  onPointerMove={onPointerMove}
+  onPointerUp={onPointerUp}
+  onPointerCancel={onPointerUp}
+
+  onMouseEnter={() => setShowCursor(true)}
+  onMouseLeave={() => setShowCursor(false)}
+  onMouseMove={onMouseMove}
+>
             {/* отступ слева 50px для первой фотографии */}
             <div className="shrink-0" />
 
-            {slides.map((s) => (
-  <div
-    key={s.id}
-    className={[
-      "group relative shrink-0 rounded-xl",
-      "h-[400px]",
-      s.kind === "v" ? "w-[320px]" : "w-[520px]",
-      "bg-light/10",
-      "backdrop-blur-[2px]",
-      "overflow-hidden",
-    ].join(" ")}
-  >
-    <Image
-      src={s.src}
-      alt={s.alt}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 85vw, 520px"
-      draggable={false}
-    />
+{slides.map((slide) => (
+  <GalleryItem key={slide.id} slide={slide} />
 
-    {/* ПОДПИСЬ */}
-    <div
-  className="
-    absolute bottom-3 left-3
-    bg-white/10 backdrop-blur-sm
-    rounded-lg
-    p-4
-    text-xs
-    text-white
-    pointer-events-none
-
-    /* mobile — всегда видно */
-    opacity-100 translate-y-0
-
-    /* desktop — только при hover */
-    md:opacity-0 md:translate-y-2
-    md:group-hover:opacity-100
-    md:group-hover:translate-y-0
-
-    transition-all duration-300 ease-out
-  "
->
-  {s.caption}
-  <p className="text-white/50 mt-1">{s.date}</p>
-</div>
-  </div>
 ))}
 
           </div>
         </div>
       </div>
+
+      {showCursor && (
+  <div
+    className="
+    font-unbounded
+      fixed
+      top-0 left-0
+      w-24 h-24
+      rounded-full
+      bg-beige
+      text-accent
+      flex items-center justify-center
+      font-unbounded
+      text-sm
+      pointer-events-none
+      z-50
+      transition-transform duration-75
+    "
+    style={{
+      transform: `translate(${cursorPos.x - 48}px, ${cursorPos.y - 48}px)`,
+    }}
+  >
+    &lt; Тяни &gt;
+  </div>
+)}
     </section>
   );
 }

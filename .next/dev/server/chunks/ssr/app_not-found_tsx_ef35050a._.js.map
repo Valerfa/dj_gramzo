@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/valeriya/Documents/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0/dj_gramzo/app/not-found.tsx"],"sourcesContent":["export default function NotFound() {\n  return (\n    <main style={{ padding: 40 }}>\n      <h1 className=\"text-xl font-medium \">404</h1>\n      <p>Упс! Страница не найдена</p>\n      <button className=\"text-white h-[42px] h-[54px] text-sm lg:text-lg font-medium inline-center px-12 rounded-xl bg-accent hover:bg-black\" href=\"/\">Вернуться назад</button>\n    </main>\n  );\n}"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAK,OAAO;YAAE,SAAS;QAAG;;0BACzB,8OAAC;gBAAG,WAAU;0BAAuB;;;;;;0BACrC,8OAAC;0BAAE;;;;;;0BACH,8OAAC;gBAAO,WAAU;gBAAsH,MAAK;0BAAI;;;;;;;;;;;;AAGvJ"}}]
-}
