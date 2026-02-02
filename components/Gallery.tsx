@@ -210,8 +210,9 @@ export default function GallerySlider() {
   const startX = useRef(0);
   const startScrollLeft = useRef(0);
   const directionRef = useRef<1 | -1>(1);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-const [showCursor, setShowCursor] = useState(false);
+  const cursorPosRef = useRef({ x: 0, y: 0 });
+  const cursorElRef = useRef<HTMLDivElement | null>(null);
+  const [showCursor, setShowCursor] = useState(false);
   
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
   const el = scrollerRef.current;
@@ -224,16 +225,6 @@ const [showCursor, setShowCursor] = useState(false);
   startScrollLeft.current = el.scrollLeft;
 }
 
-  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
-  const el = scrollerRef.current;
-  if (!el || !isDown) return;
-
-  const dx = e.clientX - startX.current;
-  el.scrollLeft = startScrollLeft.current - dx;
-
-  // определяем направление для автоскролла
-  directionRef.current = dx > 0 ? -1 : 1;
-}
 
   function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
   const el = scrollerRef.current;
@@ -244,13 +235,6 @@ const [showCursor, setShowCursor] = useState(false);
   try {
     el.releasePointerCapture(e.pointerId);
   } catch {}
-}
-
-function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-  setCursorPos({
-    x: e.clientX,
-    y: e.clientY,
-  });
 }
 
   useEffect(() => {
@@ -282,7 +266,44 @@ function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
   return () => cancelAnimationFrame(rafId);
 }, [isDown]);
 
+useEffect(() => {
+  if (!showCursor) return;
 
+  let rafId: number;
+
+  const moveCursor = () => {
+    const el = cursorElRef.current;
+    if (el) {
+      el.style.transform = `translate3d(
+        ${cursorPosRef.current.x - 48}px,
+        ${cursorPosRef.current.y - 48}px,
+        0
+      )`;
+    }
+
+    rafId = requestAnimationFrame(moveCursor);
+  };
+
+  rafId = requestAnimationFrame(moveCursor);
+  return () => cancelAnimationFrame(rafId);
+}, [showCursor]);
+
+useEffect(() => {
+  if (!showCursor) return;
+
+  const move = (e: PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+
+    cursorPosRef.current.x = e.clientX;
+    cursorPosRef.current.y = e.clientY;
+  };
+
+  window.addEventListener("pointermove", move);
+
+  return () => {
+    window.removeEventListener("pointermove", move);
+  };
+}, [showCursor]);
 
   return (
     <section id="gallery" className="relative w-full bg-black">
@@ -318,12 +339,13 @@ onPointerLeave={() => {
   setShowCursor(false);
 }}
 onPointerMove={(e) => {
-  if (e.pointerType === "mouse") {
-    setCursorPos({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  }
+  const el = scrollerRef.current;
+  if (!el || !isDown) return;
+
+  const dx = e.clientX - startX.current;
+  el.scrollLeft = startScrollLeft.current - dx;
+
+  directionRef.current = dx > 0 ? -1 : 1;
 }}
 >
             {/* отступ слева 50px для первой фотографии */}
@@ -340,23 +362,20 @@ onPointerMove={(e) => {
 
       {showCursor && (
   <div
+    ref={cursorElRef}
     className="
-    font-unbounded
-      fixed
-      top-0 left-0
-      w-24 h-24
-      rounded-full
-      text-beige
-      flex items-center justify-center
-      font-unbounded
-      text-lg uppercase font-medium
-      pointer-events-none
-      z-50
-      transition-transform duration-75
-    "
-    style={{
-      transform: `translate(${cursorPos.x - 48}px, ${cursorPos.y - 48}px)`,
-    }}
+  fixed
+  top-0 left-0
+  w-24 h-24
+  rounded-full
+  text-beige
+  flex items-center justify-center
+  font-unbounded
+  text-lg uppercase font-medium
+  pointer-events-none
+  z-50
+  will-change-transform
+"
   >
     &lt; Тяни &gt;
   </div>
