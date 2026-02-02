@@ -1507,10 +1507,6 @@ img, video {
   background-color: rgb(206 84 58 / var(--tw-bg-opacity, 1));
 }
 
-.bg-accent\/50 {
-  background-color: #ce543a80;
-}
-
 .bg-beige {
   --tw-bg-opacity: 1;
   background-color: rgb(240 235 228 / var(--tw-bg-opacity, 1));
@@ -1553,10 +1549,6 @@ img, video {
 .bg-whitesoft {
   --tw-bg-opacity: 1;
   background-color: rgb(251 251 251 / var(--tw-bg-opacity, 1));
-}
-
-.bg-accent\/20 {
-  background-color: #ce543a33;
 }
 
 .object-cover {

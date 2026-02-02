@@ -310,9 +310,22 @@ function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
   onPointerUp={onPointerUp}
   onPointerCancel={onPointerUp}
 
-  onMouseEnter={() => setShowCursor(true)}
-  onMouseLeave={() => setShowCursor(false)}
-  onMouseMove={onMouseMove}
+  onPointerEnter={(e) => {
+  if (e.pointerType === "mouse") {
+    setShowCursor(true);
+  }
+}}
+onPointerLeave={() => {
+  setShowCursor(false);
+}}
+onPointerMove={(e) => {
+  if (e.pointerType === "mouse") {
+    setCursorPos({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  }
+}}
 >
             {/* отступ слева 50px для первой фотографии */}
             <div className="shrink-0" />
@@ -334,11 +347,10 @@ function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
       top-0 left-0
       w-24 h-24
       rounded-full
-      bg-beige
-      text-accent
+      text-beige
       flex items-center justify-center
       font-unbounded
-      text-sm
+      text-lg
       pointer-events-none
       z-50
       transition-transform duration-75

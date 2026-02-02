@@ -15,3 +15,11 @@ Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [00:00:16.798] Browser WARN    Image with src "/images/hero-mobile.jpg" is using quality "90" which is not configured in images.qualities [75]. Please update your config to [75, 90].
 Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [00:00:16.798] Browser WARN    Image with src "/images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[21:29:07.003] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[21:29:07.159] Browser WARN    Image with src "/images/hero-desktop.jpg" is using quality "90" which is not configured in images.qualities [75]. Please update your config to [75, 90].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+[21:29:07.159] Browser WARN    Image with src "/images/hero-mobile.jpg" is using quality "90" which is not configured in images.qualities [75]. Please update your config to [75, 90].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+[21:29:07.159] Browser WARN    Image with src "/images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[21:31:36.426] Server  LOG     ✓ Compiled in 597ms
+[21:35:24.975] Server  LOG     ✓ Compiled in 72ms
