@@ -23,3 +23,4 @@ Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
 [21:29:07.159] Browser WARN    Image with src "/images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
 [21:31:36.426] Server  LOG     ✓ Compiled in 597ms
 [21:35:24.975] Server  LOG     ✓ Compiled in 72ms
+[21:42:21.739] Server  LOG     ✓ Compiled in 54ms

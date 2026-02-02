@@ -306,7 +306,6 @@ function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     py-4
   "
   onPointerDown={onPointerDown}
-  onPointerMove={onPointerMove}
   onPointerUp={onPointerUp}
   onPointerCancel={onPointerUp}
 
