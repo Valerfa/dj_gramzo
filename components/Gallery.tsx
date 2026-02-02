@@ -349,7 +349,7 @@ onPointerMove={(e) => {
       text-beige
       flex items-center justify-center
       font-unbounded
-      text-lg
+      text-lg uppercase font-medium
       pointer-events-none
       z-50
       transition-transform duration-75
