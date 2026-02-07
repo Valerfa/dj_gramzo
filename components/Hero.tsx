@@ -35,7 +35,7 @@ export default function Hero() {
         style={{ objectFit: 'cover', objectPosition: 'center' }}
       />
 
-      <div className="hero-content mx-2 md:ml-12">
+      <div className="hero-content mx-2 md:mx-4 lg:mx-12">
         <p className="hero-subtitle">Больше, чем Event-DJ</p>
         <p className="title-first-name">Константин </p>
         <h1 className="title-second-name">
