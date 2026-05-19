@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { Unbounded, Roboto_Condensed, Open_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "../globals.css";
+
+export const metadata: Metadata = {
+  verification: {
+    yandex: "6c8c71943059e47b",
+  },
+};
 
 const unbounded = Unbounded({
   subsets: ["cyrillic", "latin"],
