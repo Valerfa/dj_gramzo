@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "../globals.css";
 
+
 export const metadata: Metadata = {
   verification: {
     yandex: "6c8c71943059e47b",
