@@ -5,10 +5,20 @@ import { useEffect } from "react";
 type Props = {
   open: boolean;
   onClose: () => void;
-  url: string; // VK embed url
+  url: string;
 };
 
+function getEmbedUrl(url: string) {
+  if (url === "https://www.yandex.ru/video/preview/10096687132335653077") {
+    return "https://vk.com/video_ext.php?autoplay=1&hash=320d157dfea60aa6&id=456239465&loop=0&oid=133332239";
+  }
+
+  return url;
+}
+
 export default function VideoPopup({ open, onClose, url }: Props) {
+  const embedUrl = getEmbedUrl(url);
+
   // Закрытие по Esc + блокируем скролл фона
   useEffect(() => {
     if (!open) return;
@@ -76,7 +86,8 @@ text-[var(--color-dark)]
     overflow-hidden
     shadow-2xl">
     <iframe
-            src={url}
+            src={embedUrl}
+            title="Промо-видео"
             className="absolute inset-0 h-full w-full"
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             allowFullScreen
