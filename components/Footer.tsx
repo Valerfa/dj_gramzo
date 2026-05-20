@@ -69,6 +69,21 @@ export default function Footer() {
               className="w-10 h-10 md:w-7 md:h-7"
               />
           </a>
+
+          <a
+            href="https://max.ru/u/f9LHodD0cOI50J_6W7Qn3gk0z1t8bR3Bh6tWeAuVO5xLz52vbgrjTOkKzvU"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transform transition-all duration-200 hover:scale-110"
+            title="Написать в MAX"
+            aria-label="Открыть чат в MAX"
+          >
+            <img
+              src="/icons/max.svg"
+              alt="MAX"
+              className="w-10 h-10 md:w-7 md:h-7"
+            />
+          </a>
         </div>
         </div>
 <div className="flex justify-between items-start mt-24 p-4 border-t border-light/40">

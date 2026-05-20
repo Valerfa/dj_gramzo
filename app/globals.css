@@ -301,6 +301,90 @@ section {
   }
 }
 
+/* === МАРКИЗА В БЛОКЕ "КЛИЕНТЫ" === */
+.clients-marquee {
+  width: 100%;
+  padding: 16px 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 64px,
+    #000 calc(100% - 64px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 64px,
+    #000 calc(100% - 64px),
+    transparent 100%
+  );
+}
+
+.clients-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+/* Вариант: бегущая строка из SVG-логотипов */
+.clients-marquee__track--logos {
+  align-items: center;
+  gap: 56px;
+  padding-right: 56px;
+}
+
+.clients-marquee__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.clients-marquee__logo:hover {
+  opacity: 1;
+}
+
+.clients-marquee__logo img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .clients-marquee {
+    padding: 10px 0;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 24px,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 24px,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
+  }
+  .clients-marquee__track {
+    animation: marquee 28s linear infinite;
+  }
+  .clients-marquee__track--logos {
+    gap: 32px;
+    padding-right: 32px;
+  }
+  .clients-marquee__logo {
+    height: 40px;
+  }
+}
+
 /* === МОБИЛЬНЫЕ СТИЛИ МАРКВИ === */
 @media (max-width: 768px) {
   .marquee-content span {

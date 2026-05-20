@@ -14,7 +14,7 @@ export default function Hero() {
       {/* desktop */}
       <Image
         className="hero-bg hero-bg-desktop"
-        src="/images/hero-desktop.jpg"
+        src="/Images/hero-desktop.jpg"
         alt=""
         fill
         priority
@@ -26,7 +26,7 @@ export default function Hero() {
       {/* mobile */}
       <Image
         className="hero-bg hero-bg-mobile"
-        src="/images/hero-mobile.jpg"
+        src="/Images/hero-mobile.jpg"
         alt=""
         fill
         priority
@@ -75,7 +75,7 @@ export default function Hero() {
     <VideoPopup
   open={videoOpen}
   onClose={() => setVideoOpen(false)}
-  url="https://vk.com/video_ext.php?oid=133332239&id=456239310&autoplay=1"
+  url="https://www.yandex.ru/video/preview/10096687132335653077"
 />
 </>
   );

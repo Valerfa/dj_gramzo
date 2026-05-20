@@ -40,17 +40,35 @@ export default function Header() {
           <a href="/" className="flex items-center">
             <Image
               src="/icons/logo.svg"
-              alt="Логотип"
+              alt="Логотип Грамзо"
               width={36}
               height={36}
               priority
             />
           </a>
 
-          {/* ТЕЛЕФОН */}
-          <a className="phone" href="tel:+79203669096">
-            +7 (920) 366-90-96
-          </a>
+          {/* ТЕЛЕФОН + MAX */}
+          <div className="flex items-center gap-3 md:gap-4">
+            <a className="phone" href="tel:+79203669096">
+              +7 (920) 366-90-96
+            </a>
+            <a
+              href="https://max.ru/u/f9LHodD0cOI50J_6W7Qn3gk0z1t8bR3Bh6tWeAuVO5xLz52vbgrjTOkKzvU"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Написать в MAX"
+              className="text-light/90 hover:text-[var(--color-accent)] transition-colors"
+              aria-label="Открыть чат в MAX"
+            >
+              <Image
+                src="/icons/max-color.svg"
+                alt="MAX"
+                width={32}
+                height={32}
+                className="block"
+              />
+            </a>
+          </div>
         </nav>
       </div>
     </header>
