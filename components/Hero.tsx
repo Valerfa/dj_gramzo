@@ -75,7 +75,7 @@ export default function Hero() {
     <VideoPopup
   open={videoOpen}
   onClose={() => setVideoOpen(false)}
-  url="https://www.yandex.ru/video/preview/10096687132335653077"
+  url="https://vk.com/clip_ext.php?oid=133332239&id=456239465&autoplay=1"
 />
 </>
   );
