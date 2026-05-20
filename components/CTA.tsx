@@ -15,11 +15,8 @@ export default function CTA() {
           Хотите обсудить дату?
         </h2>
 
-        <p className="text-black/60 text-md md:text-lg lg:text-xl mt-2">
+        <p className="text-black/60 text-md md:text-lg lg:text-xl mt-2 mb-4">
           Обсудим нюансы и пришлем документы
-        </p>
-        <p className="text-black/60 text-md md:text-lg lg:text-xl mb-6">
-          Расскажите подробнее о вашем мероприятии
         </p>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mb-6">

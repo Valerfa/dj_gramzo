@@ -56,7 +56,7 @@ export default function About() {
 
                   <div className="w-full grid grid-cols-2 gap-2">
                     <div className="stat-item">
-                      <div className="stat-number">более 5 лет</div>
+                      <div className="stat-number">5+ лет</div>
                       <div className="text-sm md:text-lg">работаю в Event-сфере</div>
                     </div>
 
