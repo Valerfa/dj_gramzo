@@ -1,5 +1,8 @@
-[00:00:00.859] Server  LOG     ✓ Ready in 686ms
-[00:00:01.485] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.678] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:08.282] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:08.418] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:00.789] Server  LOG     ✓ Ready in 599ms
+[00:00:01.708] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.757] Browser WARN    Image with src "/Images/hero-desktop.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:14.064] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:14.191] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:18.816] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:18.816] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.

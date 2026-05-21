@@ -1,3 +1,4 @@
+import YandexMetrika from "@/components/YandexMetrika";
 import "../globals.css";
 
 export default function QuestionnaireLayout({
@@ -8,6 +9,7 @@ export default function QuestionnaireLayout({
   return (
     <html lang="ru">
       <body>
+        <YandexMetrika />
         {children}
       </body>
     </html>

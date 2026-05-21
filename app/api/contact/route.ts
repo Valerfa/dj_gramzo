@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // Получатель заявок (можно переопределить через .env: MAIL_TO=...)
-const MAIL_TO = process.env.MAIL_TO || "linkall_rus@mail.ru";
+const MAIL_TO = process.env.MAIL_TO || "fatykhova.l@yandex.ru";
 
 export async function POST(req: Request) {
   try {
@@ -56,7 +56,7 @@ ${body.contactDetails || "—"}`;
       }
     }
 
-    // 2) E-mail на linkall_rus@mail.ru через SMTP
+    // 2) E-mail получателю через SMTP (адрес берётся из MAIL_TO)
     //    Используем nodemailer, если он установлен и SMTP_* заданы.
     const smtpHost = process.env.SMTP_HOST;
     const smtpUser = process.env.SMTP_USER;
