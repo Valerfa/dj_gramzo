@@ -1,8 +1,19 @@
-[00:00:00.789] Server  LOG     ✓ Ready in 599ms
-[00:00:01.708] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:02.757] Browser WARN    Image with src "/Images/hero-desktop.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:14.064] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:14.191] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:18.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:18.816] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:18.816] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
+[00:00:00.598] Server  LOG     ✓ Ready in 457ms
+[00:00:01.061] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:01.170] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:01.170] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
+[00:00:07.572] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.684] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:10.023] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:10.145] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:10.145] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
+[00:00:42.652] Server  INFO    [contact-api] Incoming request {}
+[00:00:42.653] Server  INFO    [contact-api] Parsed body {}
+[00:00:42.654] Server  INFO    [contact-api] Runtime env availability {}
+[00:00:53.159] Server  ERROR   [contact-api] Telegram send exception {}
+[00:00:53.159] Server  INFO    [contact-api] SMTP config {}
+[00:00:53.280] Server  INFO    [contact-api] SMTP DNS bypass {}
+[00:00:53.280] Server  INFO    [contact-api] SMTP connect host overridden {}
+[00:00:53.646] Server  INFO    [contact-api] SMTP connection verified {}
+[00:00:54.529] Server  INFO    [contact-api] SMTP send success {}
+[00:00:54.529] Server  INFO    [contact-api] Delivery result {}
