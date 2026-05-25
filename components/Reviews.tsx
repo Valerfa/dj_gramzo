@@ -75,7 +75,7 @@ export default function Reviews() {
     <section id="reviews" className="w-full">
 
       {/* если ты убираешь глобальные боковые отступы — задаём их внутри блока */}
-      <div className="w-full px-2 md:px-8 lg:px-12 py-4 lg:py-20 flex flex-col">
+      <div className="w-full px-4 md:px-8 lg:px-12 py-4 lg:py-20 flex flex-col">
         <div className="flex flex-col">
           <h2 className="title-standart text-center">
             // Отзывы 

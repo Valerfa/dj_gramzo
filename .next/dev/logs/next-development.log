@@ -1,19 +1,55 @@
-[00:00:00.598] Server  LOG     ✓ Ready in 457ms
-[00:00:01.061] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:01.170] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:01.170] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
-[00:00:07.572] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:07.684] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:10.023] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:10.145] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:10.145] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
-[00:00:42.652] Server  INFO    [contact-api] Incoming request {}
-[00:00:42.653] Server  INFO    [contact-api] Parsed body {}
-[00:00:42.654] Server  INFO    [contact-api] Runtime env availability {}
-[00:00:53.159] Server  ERROR   [contact-api] Telegram send exception {}
-[00:00:53.159] Server  INFO    [contact-api] SMTP config {}
-[00:00:53.280] Server  INFO    [contact-api] SMTP DNS bypass {}
-[00:00:53.280] Server  INFO    [contact-api] SMTP connect host overridden {}
-[00:00:53.646] Server  INFO    [contact-api] SMTP connection verified {}
-[00:00:54.529] Server  INFO    [contact-api] SMTP send success {}
-[00:00:54.529] Server  INFO    [contact-api] Delivery result {}
+[00:00:00.831] Server  LOG     ✓ Ready in 653ms
+[00:00:01.833] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:01.833] Browser WARN    Image with src "/Images/hero-desktop.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:07.662] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:07.662] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:17:26.948] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:27.087] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:20:32.224] Server  LOG       Reload env: .env.local
+[00:20:32.426] Server  LOG     ✓ Compiled in 70ms
+[00:20:32.490] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./Documents/development/djgramzo.ru/dj_gramzo/node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:32.490] Server  WARN    ⚠ Fast Refresh had to perform a full reload when ./Documents/development/djgramzo.ru/dj_gramzo/node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:20:32.788] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:33.001] Browser WARN    Image with src "/icons/max-color.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:20:33.001] Browser WARN    Image with src "/Images/hero-mobile.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:20:33.082] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:33.214] Browser WARN    Image with src "/Images/hero-desktop.jpg" has "fill" prop and "sizes" prop of "100vw", but image is not rendered at full viewport width. Please adjust "sizes" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:11.394] Server  INFO    [contact-api] Incoming request {}
+[00:21:11.397] Server  INFO    [contact-api] Parsed body {}
+[00:21:11.397] Server  INFO    [contact-api] Runtime env availability {}
+[00:21:11.681] Server  INFO    [contact-api] Telegram send success {}
+[00:21:11.681] Server  INFO    [contact-api] SMTP config {}
+[00:21:11.891] Server  INFO    [contact-api] SMTP DNS bypass {}
+[00:21:11.891] Server  INFO    [contact-api] SMTP connect host overridden {}
+[00:21:26.914] Server  ERROR   [contact-api] SMTP verify failed {}
+[00:21:26.915] Server  ERROR   [contact-api] SMTP send exception {}
+[00:21:26.915] Server  INFO    [contact-api] Delivery result {}
+[00:30:49.336] Server  LOG     ✓ Compiled in 89ms
+[00:30:52.790] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:30:52.927] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:30:52.927] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.
+[00:31:00.936] Server  LOG     ✓ Compiled in 33ms
+[00:31:10.157] Server  INFO    [contact-api] Incoming request {}
+[00:31:10.159] Server  INFO    [contact-api] Parsed body {}
+[00:31:10.160] Server  INFO    [contact-api] Runtime env availability {}
+[00:31:10.416] Server  INFO    [contact-api] Telegram send success {}
+[00:31:10.416] Server  INFO    [contact-api] SMTP config {}
+[00:31:10.622] Server  INFO    [contact-api] SMTP DNS bypass {}
+[00:31:10.623] Server  INFO    [contact-api] SMTP connect host overridden {}
+[00:31:13.792] Server  INFO    [contact-api] Incoming request {}
+[00:31:13.793] Server  INFO    [contact-api] Parsed body {}
+[00:31:13.793] Server  INFO    [contact-api] Runtime env availability {}
+[00:31:13.894] Server  INFO    [contact-api] Telegram send success {}
+[00:31:13.894] Server  INFO    [contact-api] SMTP config {}
+[00:31:14.064] Server  INFO    [contact-api] SMTP DNS bypass {}
+[00:31:14.064] Server  INFO    [contact-api] SMTP connect host overridden {}
+[00:31:25.629] Server  ERROR   [contact-api] SMTP verify failed {}
+[00:31:25.629] Server  ERROR   [contact-api] SMTP send exception {}
+[00:31:25.629] Server  INFO    [contact-api] Delivery result {}
+[00:31:29.067] Server  ERROR   [contact-api] SMTP verify failed {}
+[00:31:29.068] Server  ERROR   [contact-api] SMTP send exception {}
+[00:31:29.068] Server  INFO    [contact-api] Delivery result {}
+[00:32:01.536] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:01.647] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:32:01.647] Browser WARN    Image with src "/images/konstantin-1.JPG" has "fill" and parent element with invalid "position". Provided "sticky" should be one of absolute,fixed,relative.

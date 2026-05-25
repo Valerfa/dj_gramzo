@@ -6,7 +6,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-center px-2">
+    <main className="min-h-screen flex flex-col items-center justify-center text-center px-4">
       <h1 className="text-4xl font-medium mb-2">404</h1>
 
       <p className="mb-4 text-base opacity-80">

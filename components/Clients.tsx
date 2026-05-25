@@ -11,12 +11,14 @@ const LOGOS = [
   { src: "/icons/divanru.svg",         alt: "divan.ru" },
   { src: "/icons/tartuforestoran.svg", alt: "Tartu Foresto Ran" },
   { src: "/icons/barvikha.svg",        alt: "Барвиха Luxury Village" },
+  { src: "/icons/energosbyt.svg",      alt: "Энергосбыт" },
+  { src: "/icons/mts.svg",             alt: "МТС" },
 ];
 
 export default function Clients() {
   return (
     <section className="w-full bg-beige py-12 md:py-16">
-      <div className="mx-2 md:mx-12">
+      <div className="mx-4 md:mx-12">
         <h2 className="title-standart text-center mb-18 md:mb-10">
           // Работаю с
         </h2>
@@ -44,7 +46,7 @@ export default function Clients() {
         </div>
       </div>
 
-      <div className="mx-2 md:mx-12 mt-8 md:mt-12">
+      <div className="mx-4 md:mx-12 mt-8 md:mt-12">
         <p className="max-w-4xl mx-auto text-center text-xl md:text-2xl lg:text-3xl text-[#1B1D22]">
           Работаю на событиях, где присутствуют первые лица и бизнес-элита страны. Организовываю DJ-озвучку на встречах в закрытом формате, про которые не говорят. Знаю формулу, как сделать музыку на Вашем мероприятии, чтобы она понравилась всем.
         </p>

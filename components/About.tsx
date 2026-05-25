@@ -3,13 +3,15 @@ import Image from "next/image";
 export default function About() {
   return (
     <section id="about" className="about">
-      <div className="mx-2 md:mx-12">
+      <div className="mx-4 md:mx-12">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-6">
           <div className="lg:col-span-3">
             <h2 className="title-standart text-left">// Обо мне </h2>
 
             <a
-              href="/presentation.pdf"
+              href="/djgramzo_портфолио.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               download
               className="
                 mt-4 md:mt-6 inline-flex items-center gap-3
@@ -20,8 +22,8 @@ export default function About() {
                 text-[#1B1D22]
                 transition-colors
               "
-              title="Скачать презентацию"
-              aria-label="Скачать презентацию в PDF"
+              title="Скачать портфолио"
+              aria-label="Скачать портфолио в PDF"
             >
               <Image
                 src="/icons/pdf.svg"
@@ -31,7 +33,7 @@ export default function About() {
                 className="block"
               />
               <span className="flex flex-col leading-tight">
-                <span className="font-medium">Скачать презентацию</span>
+                <span className="font-medium">Скачать портфолио</span>
                 <span className="text-xs opacity-60">PDF</span>
               </span>
             </a>
