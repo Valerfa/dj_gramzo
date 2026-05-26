@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Unbounded, Roboto_Condensed, Open_Sans } from "next/font/google";
 import Header from "@/components/Header";
+import CookieBanner from "@/components/CookieBanner";
 import Footer from "@/components/Footer";
 import YandexMetrika from "@/components/YandexMetrika";
 import "../globals.css";
@@ -41,6 +42,7 @@ export default function RootLayout({
         <YandexMetrika />
         <Header />
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

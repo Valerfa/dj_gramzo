@@ -3,8 +3,20 @@ import { promises as dnsPromises, Resolver } from "node:dns";
 
 export const runtime = "nodejs";
 
-// Получатель заявок (можно переопределить через .env: MAIL_TO=...)
-const MAIL_TO = process.env.MAIL_TO || "fatykhova.l@yandex.ru";
+// Получатель заявок. Берётся ТОЛЬКО из .env, фолбэк — на текущий рабочий ящик,
+// если переменная не задана в окружении (например, забыли положить .env на проде).
+const FALLBACK_MAIL_TO = "linkall_rus@mail.ru";
+
+type DeliveryResult = {
+  ok: boolean;
+  error: string | null;
+  durationMs: number;
+};
+
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
 
 function getErrorDetails(error: unknown) {
   if (error instanceof Error) {
@@ -14,7 +26,6 @@ function getErrorDetails(error: unknown) {
       stack: error.stack,
     };
   }
-
   return { message: String(error) };
 }
 
@@ -25,8 +36,7 @@ async function resolveSmtpHostIfNeeded(
   host: string,
   requestId: string
 ): Promise<string> {
-  const bypass = process.env.SMTP_DNS_BYPASS === "true";
-  if (!bypass) return host;
+  if (process.env.SMTP_DNS_BYPASS !== "true") return host;
 
   const dnsServers = (process.env.SMTP_DNS_SERVERS || "8.8.8.8,1.1.1.1")
     .split(",")
@@ -62,40 +72,190 @@ async function resolveSmtpHostIfNeeded(
   }
 }
 
-export async function POST(req: Request) {
-  const requestId = crypto.randomUUID();
+async function sendTelegram(
+  requestId: string,
+  message: string
+): Promise<DeliveryResult> {
+  const started = Date.now();
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.warn("[contact-api] Telegram skipped (no env)", { requestId });
+    return {
+      ok: false,
+      error: "Telegram env vars are not configured",
+      durationMs: Date.now() - started,
+    };
+  }
+
+  console.info("[contact-api] Telegram start", { requestId });
 
   try {
-    console.info("[contact-api] Incoming request", {
+    // Таймаут на запрос к Telegram, чтобы не вешать handler на минуты,
+    // даже если у Telegram что-то с сетью.
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    const response = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text: message }),
+        signal: controller.signal,
+      }
+    );
+    clearTimeout(timeoutId);
+
+    const responseText = await response.text();
+    const durationMs = Date.now() - started;
+
+    if (!response.ok) {
+      const error = `Telegram API ${response.status}: ${responseText}`;
+      console.error("[contact-api] Telegram done (failed)", {
+        requestId,
+        durationMs,
+        status: response.status,
+      });
+      return { ok: false, error, durationMs };
+    }
+
+    console.info("[contact-api] Telegram done (ok)", {
       requestId,
-      method: req.method,
-      url: req.url,
+      durationMs,
+    });
+    return { ok: true, error: null, durationMs };
+  } catch (error) {
+    const durationMs = Date.now() - started;
+    console.error("[contact-api] Telegram done (exception)", {
+      requestId,
+      durationMs,
+      error: getErrorDetails(error),
+    });
+    return { ok: false, error: getErrorMessage(error), durationMs };
+  }
+}
+
+async function sendEmail(
+  requestId: string,
+  subject: string,
+  message: string,
+  mailTo: string
+): Promise<DeliveryResult> {
+  const started = Date.now();
+
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+
+  const missing = [
+    !smtpHost && "SMTP_HOST",
+    !smtpUser && "SMTP_USER",
+    !smtpPass && "SMTP_PASS",
+  ].filter(Boolean) as string[];
+
+  if (missing.length > 0) {
+    console.warn("[contact-api] SMTP skipped (no env)", {
+      requestId,
+      missing,
+    });
+    return {
+      ok: false,
+      error: `SMTP env vars missing: ${missing.join(", ")}`,
+      durationMs: Date.now() - started,
+    };
+  }
+
+  const smtpPort = Number(process.env.SMTP_PORT || 465);
+  const smtpSecure = (process.env.SMTP_SECURE || "true") === "true";
+  const mailFrom = process.env.MAIL_FROM || smtpUser!;
+
+  console.info("[contact-api] SMTP start", {
+    requestId,
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpSecure,
+    user: smtpUser,
+    from: mailFrom,
+    to: mailTo,
+  });
+
+  try {
+    const connectHost = await resolveSmtpHostIfNeeded(smtpHost!, requestId);
+    if (connectHost !== smtpHost) {
+      console.info("[contact-api] SMTP connect host overridden", {
+        requestId,
+        originalHost: smtpHost,
+        connectHost,
+      });
+    }
+
+    const nodemailer = await import("nodemailer").then((m) => m.default || m);
+    const transporter = nodemailer.createTransport({
+      host: connectHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: { user: smtpUser, pass: smtpPass },
+      // SNI/сертификат проверяем на оригинальном хосте, даже если подключаемся по IP
+      tls: { servername: smtpHost },
+      // Жёсткие таймауты, чтобы handler не висел дольше 10s, если SMTP-порт зарезан
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
-    const body = await req.json();
-    const { type } = body;
-
-    console.info("[contact-api] Parsed body", {
-      requestId,
-      type,
-      bodyKeys: Object.keys(body),
+    // НЕ вызываем transporter.verify() — он делает лишний RTT к SMTP
+    // и удваивает задержку. sendMail сам поднимет ошибку, если сервер недоступен.
+    const info = await transporter.sendMail({
+      from: mailFrom,
+      to: mailTo,
+      subject,
+      text: message,
     });
 
-    let subject = "";
-    let message = "";
+    const durationMs = Date.now() - started;
+    console.info("[contact-api] SMTP done (ok)", {
+      requestId,
+      durationMs,
+      messageId: info.messageId,
+      accepted: info.accepted,
+      rejected: info.rejected,
+      response: info.response,
+    });
+    return { ok: true, error: null, durationMs };
+  } catch (error) {
+    const durationMs = Date.now() - started;
+    console.error("[contact-api] SMTP done (exception)", {
+      requestId,
+      durationMs,
+      error: getErrorDetails(error),
+    });
+    return { ok: false, error: getErrorMessage(error), durationMs };
+  }
+}
 
-    if (type === "callback") {
-      subject = "Обратный звонок с сайта djgramzo.ru";
-      message = `📞 ОБРАТНЫЙ ЗВОНОК
+function buildMessage(body: Record<string, unknown>): {
+  subject: string;
+  message: string;
+} | null {
+  const type = body.type;
+
+  if (type === "callback") {
+    return {
+      subject: "Обратный звонок с сайта djgramzo.ru",
+      message: `📞 ОБРАТНЫЙ ЗВОНОК
 
 👤 Имя: ${body.name || "—"}
 📞 Телефон: ${body.phone || "—"}
-💬 Комментарий: ${body.comment || "—"}`;
-    }
+💬 Комментарий: ${body.comment || "—"}`,
+    };
+  }
 
-    if (type === "questionnaire") {
-      subject = "Новая анкета с сайта djgramzo.ru";
-      message = `📝 АНКЕТА
+  if (type === "questionnaire") {
+    return {
+      subject: "Новая анкета с сайта djgramzo.ru",
+      message: `📝 АНКЕТА
 
 🎉 Формат: ${body.eventFormat || "—"}
 
@@ -107,201 +267,101 @@ export async function POST(req: Request) {
 ${body.showProgram || "—"}
 
 📞 Связь (${body.contactMethod}):
-${body.contactDetails || "—"}`;
-    }
+${body.contactDetails || "—"}`,
+    };
+  }
 
-    if (!message) {
-      console.warn("[contact-api] Unknown form type", { requestId, type });
-      return NextResponse.json({ error: "Unknown form type" }, { status: 400 });
-    }
+  return null;
+}
 
-    // 1) Telegram (если переменные заданы)
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
-    let telegramSent = false;
-    let telegramError: string | null = null;
+export async function POST(req: Request) {
+  const requestId = crypto.randomUUID();
+  const requestStarted = Date.now();
+  const mailTo = process.env.MAIL_TO || FALLBACK_MAIL_TO;
+
+  console.info("[contact-api] Incoming request", {
+    requestId,
+    method: req.method,
+    url: req.url,
+  });
+
+  try {
+    const body = (await req.json()) as Record<string, unknown>;
+
+    console.info("[contact-api] Parsed body", {
+      requestId,
+      type: body.type,
+      bodyKeys: Object.keys(body),
+    });
+
+    const built = buildMessage(body);
+    if (!built) {
+      console.warn("[contact-api] Unknown form type", {
+        requestId,
+        type: body.type,
+      });
+      return NextResponse.json(
+        { error: "Unknown form type", requestId },
+        { status: 400 }
+      );
+    }
 
     console.info("[contact-api] Runtime env availability", {
       requestId,
-      TELEGRAM_BOT_TOKEN: Boolean(token),
-      TELEGRAM_CHAT_ID: Boolean(chatId),
-      SMTP_HOST: Boolean(process.env.SMTP_HOST),
-      SMTP_PORT: Boolean(process.env.SMTP_PORT),
-      SMTP_USER: Boolean(process.env.SMTP_USER),
+      TELEGRAM_BOT_TOKEN: Boolean(process.env.TELEGRAM_BOT_TOKEN),
+      TELEGRAM_CHAT_ID: Boolean(process.env.TELEGRAM_CHAT_ID),
+      SMTP_HOST: process.env.SMTP_HOST || null,
+      SMTP_PORT: process.env.SMTP_PORT || null,
+      SMTP_USER: process.env.SMTP_USER || null,
       SMTP_PASS: Boolean(process.env.SMTP_PASS),
-      SMTP_SECURE: Boolean(process.env.SMTP_SECURE),
-      MAIL_FROM: Boolean(process.env.MAIL_FROM),
-      MAIL_TO: Boolean(process.env.MAIL_TO),
-      resolvedMailTo: MAIL_TO,
+      SMTP_SECURE: process.env.SMTP_SECURE || null,
+      MAIL_FROM: process.env.MAIL_FROM || null,
+      MAIL_TO_env: process.env.MAIL_TO || null,
+      MAIL_TO_resolved: mailTo,
     });
 
-    if (token && chatId) {
-      try {
-        const telegramResponse = await fetch(
-          `https://api.telegram.org/bot${token}/sendMessage`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: chatId, text: message }),
-          }
-        );
-        const telegramResponseText = await telegramResponse.text();
+    // Параллельная доставка: Telegram + Email. Ждём оба, но не последовательно.
+    const [telegramResult, emailResult] = await Promise.all([
+      sendTelegram(requestId, built.message),
+      sendEmail(requestId, built.subject, built.message, mailTo),
+    ]);
 
-        if (!telegramResponse.ok) {
-          telegramError = `Telegram API error ${telegramResponse.status}: ${telegramResponseText}`;
-          console.error("[contact-api] Telegram send failed", {
-            requestId,
-            status: telegramResponse.status,
-            response: telegramResponseText,
-          });
-        } else {
-          telegramSent = true;
-          console.info("[contact-api] Telegram send success", {
-            requestId,
-            status: telegramResponse.status,
-          });
-        }
-      } catch (error) {
-        const details = getErrorDetails(error);
-        telegramError = details.message;
-        console.error("[contact-api] Telegram send exception", {
-          requestId,
-          error: details,
-        });
-      }
-    } else {
-      telegramError = "Telegram env vars are not configured";
-      console.warn("[contact-api] Telegram skipped", {
-        requestId,
-        TELEGRAM_BOT_TOKEN: Boolean(token),
-        TELEGRAM_CHAT_ID: Boolean(chatId),
-      });
-    }
-
-    // 2) E-mail получателю через SMTP (адрес берётся из MAIL_TO)
-    //    Используем nodemailer, если он установлен и SMTP_* заданы.
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const missingSmtpVars = [
-      ["SMTP_HOST", smtpHost],
-      ["SMTP_USER", smtpUser],
-      ["SMTP_PASS", smtpPass],
-    ]
-      .filter(([, value]) => !value)
-      .map(([name]) => name);
-
-    let mailSent = false;
-    let mailError: string | null = null;
-
-    if (smtpHost && smtpUser && smtpPass) {
-      const smtpPort = Number(process.env.SMTP_PORT || 465);
-      const smtpSecure = (process.env.SMTP_SECURE || "true") === "true";
-      const mailFrom = process.env.MAIL_FROM || smtpUser;
-
-      console.info("[contact-api] SMTP config", {
-        requestId,
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpSecure,
-        user: smtpUser,
-        from: mailFrom,
-        to: MAIL_TO,
-      });
-
-      try {
-        const connectHost = await resolveSmtpHostIfNeeded(smtpHost, requestId);
-        if (connectHost !== smtpHost) {
-          console.info("[contact-api] SMTP connect host overridden", {
-            requestId,
-            originalHost: smtpHost,
-            connectHost,
-          });
-        }
-
-        // Динамический импорт, чтобы сборка не падала, если зависимость не установлена
-        const nodemailer = await import("nodemailer").then((m) => m.default || m);
-        const transporter = nodemailer.createTransport({
-          host: connectHost,
-          port: smtpPort,
-          secure: smtpSecure,
-          auth: { user: smtpUser, pass: smtpPass },
-          // Если подключаемся по IP, SNI/сертификат всё равно проверяем на оригинальном хосте
-          tls: { servername: smtpHost },
-          connectionTimeout: 15000,
-          greetingTimeout: 15000,
-          socketTimeout: 20000,
-        });
-
-        try {
-          await transporter.verify();
-          console.info("[contact-api] SMTP connection verified", {
-            requestId,
-            host: smtpHost,
-            port: smtpPort,
-          });
-        } catch (verifyError) {
-          const details = getErrorDetails(verifyError);
-          console.error("[contact-api] SMTP verify failed", {
-            requestId,
-            error: details,
-          });
-          throw verifyError;
-        }
-
-        const mailInfo = await transporter.sendMail({
-          from: mailFrom,
-          to: MAIL_TO,
-          subject,
-          text: message,
-        });
-        mailSent = true;
-        console.info("[contact-api] SMTP send success", {
-          requestId,
-          messageId: mailInfo.messageId,
-          accepted: mailInfo.accepted,
-          rejected: mailInfo.rejected,
-          response: mailInfo.response,
-        });
-      } catch (error) {
-        const details = getErrorDetails(error);
-        mailError = details.message;
-        console.error("[contact-api] SMTP send exception", {
-          requestId,
-          error: details,
-        });
-      }
-    } else {
-      mailError = `SMTP env vars are not configured: ${missingSmtpVars.join(", ")}`;
-      console.warn("[contact-api] SMTP skipped", {
-        requestId,
-        missingSmtpVars,
-      });
-    }
+    const totalMs = Date.now() - requestStarted;
 
     console.info("[contact-api] Delivery result", {
       requestId,
-      type,
-      telegramSent,
-      mailSent,
-      telegramError,
-      mailError,
+      type: body.type,
+      mailTo,
+      totalMs,
+      telegram: {
+        ok: telegramResult.ok,
+        ms: telegramResult.durationMs,
+        error: telegramResult.error,
+      },
+      email: {
+        ok: emailResult.ok,
+        ms: emailResult.durationMs,
+        error: emailResult.error,
+      },
     });
 
     return NextResponse.json({
       ok: true,
       requestId,
+      durationMs: totalMs,
       delivery: {
-        telegram: telegramSent,
-        telegramError,
-        email: mailSent,
-        emailTo: MAIL_TO,
-        emailError: mailError,
+        telegram: telegramResult.ok,
+        telegramError: telegramResult.error,
+        email: emailResult.ok,
+        emailTo: mailTo,
+        emailError: emailResult.error,
       },
     });
   } catch (error) {
+    const totalMs = Date.now() - requestStarted;
     console.error("[contact-api] Request failed", {
       requestId,
+      totalMs,
       error: getErrorDetails(error),
     });
 

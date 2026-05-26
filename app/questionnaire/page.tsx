@@ -3,8 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import SuccessToast, { FormSubmitSpinner } from "@/components/ui/SuccessToast";
 
 type ContactMethod = "phone" | "telegram" | "max";
+type ToastState = "success" | "error" | null;
+
+const INITIAL_FORM = {
+  eventFormat: "",
+  eventDate: "",
+  eventLocation: "",
+  guestsCount: "",
+  showProgram: "",
+  contactMethod: "phone" as ContactMethod,
+  contactDetails: "",
+};
 
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "");
@@ -38,18 +50,11 @@ function formatPhone(value: string) {
 }
 
 export default function QuestionnairePage() {
-  const [form, setForm] = useState({
-    eventFormat: "",
-    eventDate: "",
-    eventLocation: "",
-    guestsCount: "",
-    showProgram: "",
-    contactMethod: "phone" as ContactMethod,
-    contactDetails: "",
-  });
-
+  const [form, setForm] = useState(INITIAL_FORM);
   const [phoneError, setPhoneError] = useState("");
   const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<ToastState>(null);
 
   const requiredFields = [
     form.eventFormat,
@@ -69,7 +74,7 @@ export default function QuestionnairePage() {
   }
 
   async function handleSubmit() {
-    if (!allFilled) return;
+    if (!allFilled || isSubmitting) return;
 
     if (form.contactMethod === "phone") {
       if (!isValidPhone(form.contactDetails)) {
@@ -79,18 +84,36 @@ export default function QuestionnairePage() {
     }
 
     setPhoneError("");
+    setIsSubmitting(true);
 
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "questionnaire",
-        ...form,
-        consent: true,
-      }),
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "questionnaire",
+          ...form,
+          consent: true,
+        }),
+      });
 
-    alert("Анкета отправлена");
+      const data = await res.json().catch(() => ({}));
+      const delivered =
+        data?.delivery?.telegram === true || data?.delivery?.email === true;
+
+      if (!res.ok || !delivered) {
+        setToast("error");
+        return;
+      }
+
+      setForm(INITIAL_FORM);
+      setConsent(false);
+      setToast("success");
+    } catch {
+      setToast("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const contactOptions: { label: string; value: ContactMethod }[] = [
@@ -109,6 +132,7 @@ export default function QuestionnairePage() {
   }
 
   return (
+    <>
     <main className="min-h-screen bg-white md:flex">
       <Link
         href="/"
@@ -278,18 +302,31 @@ export default function QuestionnairePage() {
           </label>
           {/* ===== ОТПРАВКА ===== */}
           <button
-            disabled={!allFilled}
+            type="button"
+            disabled={!allFilled || isSubmitting}
             onClick={handleSubmit}
-            className={`w-full h-14 rounded-2xl text-lg transition ${
-              allFilled
+            className={`w-full h-14 rounded-2xl text-lg transition flex items-center justify-center gap-2 ${
+              allFilled && !isSubmitting
                 ? "bg-black text-white"
                 : "bg-black/20 text-black/40 cursor-not-allowed"
             }`}
           >
-            Отправить анкету
+            {isSubmitting ? (
+              <>
+                <FormSubmitSpinner />
+                Отправляем анкету...
+              </>
+            ) : (
+              "Отправить анкету"
+            )}
           </button>
         </div>
       </section>
     </main>
+
+    {toast && (
+      <SuccessToast variant={toast} onClose={() => setToast(null)} />
+    )}
+    </>
   );
 }
