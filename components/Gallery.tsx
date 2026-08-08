@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 type Slide = {
@@ -137,249 +137,108 @@ const slides: Slide[] = [
   },
 ];
 
-function GalleryItem({ slide }: { slide: Slide }) {
+function GalleryItem({
+  slide,
+  isActive,
+  onActivate,
+}: {
+  slide: Slide;
+  isActive: boolean;
+  onActivate: () => void;
+}) {
   const [frame, setFrame] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  
+  const [isHovered, setIsHovered] = useState(false);
+  const isPlaying = isActive || isHovered;
+  const visibleFrame = isPlaying ? frame : 0;
 
-  function startHover() {
-    // на мобиле hover не нужен
-    if (window.innerWidth < 768) return;
-    if (timerRef.current) return;
+  useEffect(() => {
+    if (!isPlaying) return;
 
-    timerRef.current = setInterval(() => {
+    const timer = setInterval(() => {
       setFrame((i) => (i + 1) % slide.frames.length);
     }, 200);
+
+    return () => clearInterval(timer);
+  }, [isPlaying, slide.frames.length]);
+
+  function startHover() {
+    if (window.innerWidth < 768) return;
+    setFrame(0);
+    setIsHovered(true);
   }
 
   function stopHover() {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
+    if (window.innerWidth < 768) return;
+    setIsHovered(false);
     setFrame(0);
   }
 
-  return (
-  <div
-  className={[
-    "relative shrink-0",
-    "h-[400px]",
-    slide.kind === "v" ? "w-[320px]" : "w-[520px]",
-    "overflow-visible",
-  ].join(" ")}
-  onMouseEnter={startHover}
-  onMouseLeave={stopHover}
->
-    {/* КАРТИНКА */}
-   <div className="relative w-full h-full rounded-xl overflow-hidden bg-light/10 backdrop-blur-[2px]">
-  <Image
-    src={slide.frames[frame]}
-    alt={slide.alt}
-    fill
-    className="object-cover transition-opacity duration-200"
-    sizes="(max-width: 768px) 85vw, 520px"
-    draggable={false}
-  />
-</div>
+  function handleClick() {
+    if (window.innerWidth >= 768) return;
+    setFrame(0);
+    onActivate();
+  }
 
-    {/* ПЛАШКА */}
-   <div
-  className={[
-    "absolute",
-    slide.labelPosition,
-    "p-4 w-36",
-    "rounded-xl",
-    "bg-black ",
-    "text-xs text-beige",
-    "z-20",
-    "pointer-events-none",
-  ].join(" ")}
->
-  {slide.label}
-</div>
-  </div>
-);
+  return (
+    <div
+      className={[
+        "relative",
+        "h-[380px] sm:h-[460px] lg:h-[400px]",
+        "w-full",
+        "overflow-visible",
+      ].join(" ")}
+      onMouseEnter={startHover}
+      onMouseLeave={stopHover}
+      onClick={handleClick}
+    >
+      {/* КАРТИНКА */}
+      <div className="relative w-full h-full rounded-xl overflow-hidden bg-light/10 backdrop-blur-[2px]">
+        <Image
+          src={slide.frames[visibleFrame]}
+          alt={slide.alt}
+          fill
+          className="object-cover transition-opacity duration-200"
+          sizes="(max-width: 1024px) 100vw, 25vw"
+          draggable={false}
+        />
+      </div>
+
+      {/* ПЛАШКА */}
+      <div
+        className={[
+          "absolute",
+          slide.labelPosition,
+          "p-4 w-36",
+          "rounded-xl",
+          "bg-black",
+          "text-xs text-beige",
+          "z-20",
+          "pointer-events-none",
+        ].join(" ")}
+      >
+        {slide.label}
+      </div>
+    </div>
+  );
 }
 
 
 
 export default function GallerySlider() {
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const [isDown, setIsDown] = useState(false);
-  const startX = useRef(0);
-  const startScrollLeft = useRef(0);
-  const directionRef = useRef<1 | -1>(1);
-  const cursorPosRef = useRef({ x: 0, y: 0 });
-  const cursorElRef = useRef<HTMLDivElement | null>(null);
-  const [showCursor, setShowCursor] = useState(false);
-  
-  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-  const el = scrollerRef.current;
-  if (!el) return;
-
-  setIsDown(true);
-  el.setPointerCapture(e.pointerId);
-
-  startX.current = e.clientX;
-  startScrollLeft.current = el.scrollLeft;
-}
-
-
-  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
-  const el = scrollerRef.current;
-  if (!el) return;
-
-  setIsDown(false);
-
-  try {
-    el.releasePointerCapture(e.pointerId);
-  } catch {}
-}
-
-  useEffect(() => {
-  const el = scrollerRef.current;
-  if (!el) return;
-
-  let rafId: number;
-  const speed = 0.9;
-
-  const autoScroll = () => {
-    if (!isDown) {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-
-      el.scrollLeft += speed * directionRef.current;
-
-      if (el.scrollLeft >= maxScroll) {
-        directionRef.current = -1;
-      }
-
-      if (el.scrollLeft <= 0) {
-        directionRef.current = 1;
-      }
-    }
-
-    rafId = requestAnimationFrame(autoScroll);
-  };
-
-  rafId = requestAnimationFrame(autoScroll);
-  return () => cancelAnimationFrame(rafId);
-}, [isDown]);
-
-useEffect(() => {
-  if (!showCursor) return;
-
-  let rafId: number;
-
-  const moveCursor = () => {
-    const el = cursorElRef.current;
-    if (el) {
-      el.style.transform = `translate3d(
-        ${cursorPosRef.current.x - 48}px,
-        ${cursorPosRef.current.y - 48}px,
-        0
-      )`;
-    }
-
-    rafId = requestAnimationFrame(moveCursor);
-  };
-
-  rafId = requestAnimationFrame(moveCursor);
-  return () => cancelAnimationFrame(rafId);
-}, [showCursor]);
-
-useEffect(() => {
-  if (!showCursor) return;
-
-  const move = (e: PointerEvent) => {
-    if (e.pointerType !== "mouse") return;
-
-    cursorPosRef.current.x = e.clientX;
-    cursorPosRef.current.y = e.clientY;
-  };
-
-  window.addEventListener("pointermove", move);
-
-  return () => {
-    window.removeEventListener("pointermove", move);
-  };
-}, [showCursor]);
+  const [activeSlideId, setActiveSlideId] = useState<string | null>(null);
 
   return (
     <section id="gallery" className="relative w-full bg-black">
-  
-
-      {/* Высота блока */}
-      <div className="w-full">
-       
-   
-
-        {/* Лента */}
-        <div className="w-full">
-          <div
-  ref={scrollerRef}
-  className="
-    no-scrollbar
-    flex items-center gap-4
-    overflow-x-auto overflow-y-visible
-    cursor-none
-    select-none
-    py-4
-  "
-  onPointerDown={onPointerDown}
-  onPointerUp={onPointerUp}
-  onPointerCancel={onPointerUp}
-
-  onPointerEnter={(e) => {
-  if (e.pointerType === "mouse") {
-    setShowCursor(true);
-  }
-}}
-onPointerLeave={() => {
-  setShowCursor(false);
-}}
-onPointerMove={(e) => {
-  const el = scrollerRef.current;
-  if (!el || !isDown) return;
-
-  const dx = e.clientX - startX.current;
-  el.scrollLeft = startScrollLeft.current - dx;
-
-  directionRef.current = dx > 0 ? -1 : 1;
-}}
->
-            {/* отступ слева 50px для первой фотографии */}
-            <div className="shrink-0" />
-
-{slides.map((slide) => (
-  <GalleryItem key={slide.id} slide={slide} />
-
-))}
-
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 px-4 py-4">
+        {slides.map((slide) => (
+          <GalleryItem
+            key={slide.id}
+            slide={slide}
+            isActive={activeSlideId === slide.id}
+            onActivate={() => setActiveSlideId(slide.id)}
+          />
+        ))}
       </div>
-
-      {showCursor && (
-  <div
-    ref={cursorElRef}
-    className="
-  fixed
-  top-0 left-0
-  w-24 h-24
-  rounded-full
-  text-beige
-  flex items-center justify-center
-  font-unbounded
-  text-lg uppercase font-medium
-  pointer-events-none
-  z-50
-  will-change-transform
-"
-  >
-    &lt; Тяни &gt;
-  </div>
-)}
     </section>
   );
 }
