@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
 import Work from "@/components/Work";
 import Clients from "@/components/Clients";
-import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
@@ -21,7 +20,6 @@ export default function HomePage() {
       <Work />
       <Clients />
       <CTA />
-      <Footer/>
     </>
   );
 }

@@ -1,0 +1,413 @@
+.page {
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-beige);
+  color: var(--color-dark);
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+.container {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+  min-height: 760px;
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8rem 3rem 5rem 7.5rem;
+}
+
+.heroText {
+  min-width: 0;
+  width: min(100%, 760px);
+}
+
+.heroSpine {
+  position: absolute;
+  top: 50%;
+  left: 2.5rem;
+  color: rgba(243, 237, 230, 0.42);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.heroKicker,
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 4.6rem;
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.hero h1.longTitle {
+  font-size: 3.4rem;
+}
+
+.heroLead {
+  max-width: 680px;
+  margin: 2rem 0;
+  color: rgba(243, 237, 230, 0.76);
+  font-size: 1.08rem;
+  line-height: 1.62;
+}
+
+.heroPhoto {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.heroPhoto img {
+  object-fit: cover;
+  object-position: center 34%;
+}
+
+.section {
+  padding: 7rem 0;
+}
+
+.introSection {
+  background: var(--color-light);
+}
+
+.introSection .container {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 6rem;
+  align-items: start;
+}
+
+.introHeading p {
+  max-width: 420px;
+  margin: 1rem 0 0;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.introCopy {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.introCopy p:first-child::first-letter {
+  float: left;
+  margin: 0.12em 0.14em 0 0;
+  color: var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 3.5em;
+  font-weight: 600;
+  line-height: 0.8;
+}
+
+.editorialSection {
+  background: var(--color-beige);
+}
+
+.editorialGrid,
+.mediaGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 6rem;
+  align-items: start;
+}
+
+.sectionTitle,
+.mediaCopy {
+  min-width: 0;
+}
+
+.sectionTitle h2,
+.mediaCopy h2,
+.bookingInner h2 {
+  margin: 0;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 3rem;
+  font-weight: 500;
+  hyphens: auto;
+  line-height: 1.14;
+  overflow-wrap: anywhere;
+}
+
+.blocks {
+  min-width: 0;
+  font-size: 1.08rem;
+  line-height: 1.72;
+}
+
+.blocks p {
+  margin: 0 0 1.25rem;
+}
+
+.blocks p:last-child,
+.blocks > *:last-child {
+  margin-bottom: 0;
+}
+
+.list {
+  margin: 1.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+  padding: 1rem 0 1rem 2rem;
+  border-top: 1px solid rgba(27, 29, 34, 0.16);
+}
+
+.list li:last-child {
+  border-bottom: 1px solid rgba(27, 29, 34, 0.16);
+}
+
+.list li::before {
+  position: absolute;
+  top: 1.55rem;
+  left: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.darkSection {
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.darkSection .blocks {
+  color: rgba(243, 237, 230, 0.76);
+}
+
+.darkSection .list li {
+  border-color: rgba(243, 237, 230, 0.16);
+}
+
+.lightSection {
+  background: var(--color-light);
+}
+
+.mediaGrid {
+  align-items: center;
+}
+
+.mediaReverse .mediaCopy {
+  order: 2;
+}
+
+.mediaReverse .sectionPhoto {
+  order: 1;
+}
+
+.mediaCopy h2 {
+  margin-bottom: 2rem;
+}
+
+.sectionPhoto {
+  position: relative;
+  min-height: 680px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.sectionPhoto img {
+  object-fit: cover;
+  object-position: center 28%;
+}
+
+.bookingSection {
+  padding: 5.5rem 0;
+  background: var(--color-accent);
+  color: var(--color-light);
+}
+
+.bookingInner {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.bookingInner .eyebrow {
+  margin: 0;
+  color: rgba(243, 237, 230, 0.72);
+}
+
+.bookingInner h2 {
+  font-size: 2.6rem;
+}
+
+.bookingInner p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.bookingInner a {
+  grid-column: 3;
+  justify-self: start;
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .heroCopy {
+    padding: 7rem 2.5rem 4rem 5rem;
+  }
+
+  .heroSpine {
+    left: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 3.25rem;
+  }
+
+  .hero h1.longTitle {
+    font-size: 2.8rem;
+  }
+
+  .editorialGrid,
+  .mediaGrid,
+  .introSection .container {
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .heroCopy {
+    min-height: 620px;
+    padding: 7.5rem 1.25rem 4rem 4rem;
+  }
+
+  .heroSpine {
+    left: 1.25rem;
+  }
+
+  .hero h1 {
+    font-size: 3.25rem;
+  }
+
+  .heroPhoto {
+    min-height: 74vh;
+  }
+
+  .introSection .container,
+  .editorialGrid,
+  .mediaGrid,
+  .bookingInner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .mediaCopy,
+  .mediaReverse .mediaCopy {
+    order: 1;
+  }
+
+  .sectionPhoto,
+  .mediaReverse .sectionPhoto {
+    order: 2;
+    min-height: 620px;
+  }
+
+  .bookingInner a {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroCopy {
+    min-height: 650px;
+    padding: 7rem 0.875rem 3.5rem 2.7rem;
+  }
+
+  .heroSpine {
+    left: 0.85rem;
+    font-size: 0.58rem;
+  }
+
+  .hero h1 {
+    font-size: 1.95rem;
+    line-height: 1.08;
+  }
+
+  .hero h1.longTitle {
+    font-size: 1.78rem;
+  }
+
+  .heroLead {
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .heroPhoto {
+    min-height: 82vh;
+  }
+
+  .section {
+    padding: 4.25rem 0;
+  }
+
+  .introHeading p {
+    font-size: 1.35rem;
+  }
+
+  .introCopy,
+  .blocks {
+    font-size: 1rem;
+  }
+
+  .sectionTitle h2,
+  .mediaCopy h2,
+  .bookingInner h2 {
+    font-size: 2rem;
+  }
+
+  .sectionPhoto {
+    min-height: 680px;
+  }
+
+  .bookingSection {
+    padding: 4rem 0;
+  }
+}

@@ -1,0 +1,576 @@
+.page {
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-beige);
+  color: var(--color-dark);
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+.container {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.9fr);
+  min-height: 760px;
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.heroCopy {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8rem 3rem 5rem 7.5rem;
+}
+
+.heroText {
+  width: min(100%, 760px);
+}
+
+.heroSpine {
+  position: absolute;
+  left: 2.5rem;
+  top: 50%;
+  color: rgba(243, 237, 230, 0.42);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.heroKicker,
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(2.8rem, 5vw, 5.8rem);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.heroLead {
+  max-width: 650px;
+  margin: 2rem 0;
+  color: rgba(243, 237, 230, 0.78);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.heroPhoto {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.heroPhoto img {
+  object-fit: cover;
+  object-position: center 34%;
+}
+
+.section {
+  padding: 7.5rem 0;
+}
+
+.sectionHeading {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.35fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.sectionHeading > * {
+  min-width: 0;
+}
+
+.sectionHeading h2,
+.equipmentCopy h2,
+.bookingInner h2 {
+  margin: 0;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(2rem, 3.6vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.06;
+}
+
+.lightHeading {
+  color: var(--color-light);
+}
+
+.editorial {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 7rem);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.editorial p {
+  margin: 0;
+}
+
+.leadParagraph::first-letter {
+  float: left;
+  margin: 0.15em 0.14em 0 0;
+  color: var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 3.4em;
+  font-weight: 600;
+  line-height: 0.78;
+}
+
+.quote {
+  margin: 2rem 0 0;
+  padding: 1.5rem 0 0 1.75rem;
+  border-left: 3px solid var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.darkSection {
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.moodGrid,
+.advantagesGrid,
+.pricingGrid,
+.eventsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(3.5rem, 7vw, 7rem);
+}
+
+.portraitPhoto,
+.advantagesPhoto {
+  position: relative;
+  min-height: 650px;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.moodCopy .sectionHeading,
+.advantagesCopy .sectionHeading,
+.sectionIntro .sectionHeading,
+.pricingCopy .sectionHeading {
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.moodCopy .sectionHeading h2,
+.advantagesCopy .sectionHeading h2,
+.sectionIntro .sectionHeading h2,
+.pricingCopy .sectionHeading h2 {
+  font-size: clamp(2.1rem, 3vw, 3.5rem);
+}
+
+.portraitPhoto img,
+.advantagesPhoto img {
+  object-fit: cover;
+}
+
+.portraitPhoto img {
+  object-position: center 28%;
+}
+
+.advantagesPhoto img {
+  object-position: center 22%;
+}
+
+.advantagesGrid {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.advantagesCopy {
+  min-width: 0;
+}
+
+.moodCopy {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.factorList,
+.advantagesList,
+.priceFactors {
+  margin: 1.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.factorList li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(243, 237, 230, 0.15);
+}
+
+.factorList li::before {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.mutedLight {
+  max-width: 620px;
+  color: rgba(243, 237, 230, 0.62);
+}
+
+.advantagesList {
+  margin: 0;
+}
+
+.advantagesList li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.5rem;
+  padding: 1.45rem 0;
+  border-top: 1px solid rgba(27, 29, 34, 0.16);
+}
+
+.advantagesList li:last-child {
+  border-bottom: 1px solid rgba(27, 29, 34, 0.16);
+}
+
+.advantagesList span {
+  color: var(--color-accent);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.78rem;
+}
+
+.advantagesList p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.sectionTail {
+  max-width: 760px;
+  margin: 2.5rem 0 0;
+  color: rgba(27, 29, 34, 0.65);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.advantagesCopy .sectionTail,
+.sectionIntro .sectionTail {
+  margin-top: 2rem;
+}
+
+.eventsSection {
+  background: var(--color-light);
+}
+
+.eventTypes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(27, 29, 34, 0.16);
+}
+
+.eventType {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 84px;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(27, 29, 34, 0.16);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+}
+
+.eventType span {
+  color: var(--color-accent);
+  font-size: 0.72rem;
+}
+
+.equipmentSection {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 680px;
+  color: var(--color-light);
+}
+
+.equipmentSection > img {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.equipmentOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(27, 29, 34, 0.95), rgba(27, 29, 34, 0.1) 75%);
+}
+
+.equipmentCopy {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  padding: 5rem 3rem;
+}
+
+.equipmentCopy h2 {
+  max-width: 850px;
+}
+
+.equipmentCopy p {
+  max-width: 720px;
+  margin: 1.5rem 0 0;
+  color: rgba(243, 237, 230, 0.8);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.priceFactors {
+  margin: 0;
+}
+
+.pricingGrid {
+  align-items: stretch;
+}
+
+.pricingCopy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.pricingCopy .priceFactors {
+  margin-top: auto;
+}
+
+.priceFactors li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(27, 29, 34, 0.16);
+  font-size: 1.05rem;
+}
+
+.priceFactors li span:last-child {
+  color: rgba(27, 29, 34, 0.4);
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: 0.72rem;
+}
+
+.pricePanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 4rem);
+  border-radius: 28px;
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.pricePanel h3 {
+  max-width: 640px;
+  margin: 0.75rem 0 1.25rem;
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(1.5rem, 2.6vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.pricePanel p {
+  margin: 0 0 2rem;
+  color: rgba(243, 237, 230, 0.7);
+  line-height: 1.6;
+}
+
+.bookingSection {
+  padding: 4.5rem 0;
+  background: var(--color-accent);
+  color: var(--color-light);
+}
+
+.bookingInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: 4rem;
+  width: min(100%, 1320px);
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.bookingInner h2 {
+  font-size: clamp(2rem, 3vw, 3.5rem);
+}
+
+.bookingInner p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .heroCopy {
+    padding: 7rem 2.5rem 4rem 5rem;
+  }
+
+  .heroSpine {
+    left: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 4vw, 3.4rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .container,
+  .equipmentCopy,
+  .bookingInner {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .heroCopy {
+    min-height: 620px;
+    padding: 7.5rem 1.25rem 4rem 4rem;
+  }
+
+  .heroSpine {
+    left: 1.25rem;
+  }
+
+  .heroPhoto {
+    min-height: 72vh;
+  }
+
+  .sectionHeading,
+  .editorial,
+  .moodGrid,
+  .advantagesGrid,
+  .pricingGrid,
+  .eventsGrid,
+  .bookingInner {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionHeading {
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .portraitPhoto,
+  .advantagesPhoto {
+    min-height: 560px;
+  }
+
+  .moodCopy {
+    order: 1;
+  }
+
+  .portraitPhoto {
+    order: 2;
+  }
+
+  .eventTypes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bookingInner {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroCopy {
+    min-height: 600px;
+    padding: 7rem 0.875rem 3.5rem 2.7rem;
+  }
+
+  .heroSpine {
+    left: 0.85rem;
+    font-size: 0.58rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 9vw, 3.2rem);
+    line-height: 1.02;
+  }
+
+  .heroLead {
+    font-size: 1rem;
+  }
+
+  .heroPhoto {
+    min-height: 78vh;
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .sectionHeading h2,
+  .equipmentCopy h2 {
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
+  .portraitPhoto,
+  .advantagesPhoto {
+    min-height: 520px;
+    border-radius: 20px;
+  }
+
+  .advantagesList li {
+    grid-template-columns: 100px 1fr;
+    gap: 0.75rem;
+  }
+
+  .eventTypes {
+    grid-template-columns: 1fr;
+  }
+
+  .equipmentSection {
+    min-height: 580px;
+  }
+
+  .equipmentCopy {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .pricePanel {
+    border-radius: 20px;
+  }
+
+  .bookingSection {
+    padding: 3.5rem 0;
+  }
+}

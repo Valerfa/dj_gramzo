@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Unbounded, Roboto_Condensed, Open_Sans } from "next/font/google";
-import Header from "@/components/Header";
+import { Open_Sans, Roboto_Condensed, Unbounded } from "next/font/google";
 import CookieBanner from "@/components/CookieBanner";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import YandexMetrika from "@/components/YandexMetrika";
-import "../globals.css";
-
+import "./globals.css";
 
 export const metadata: Metadata = {
   verification: {
@@ -25,7 +24,7 @@ const robotoCondensed = Roboto_Condensed({
   variable: "--font-roboto-condensed",
 });
 
-const OpenSans = Open_Sans({
+const openSans = Open_Sans({
   subsets: ["cyrillic", "latin"],
   weight: ["400", "500", "700"],
   variable: "--font-open-sans",
@@ -33,15 +32,18 @@ const OpenSans = Open_Sans({
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="ru">
-      <body className={`${unbounded.variable} ${robotoCondensed.variable} ${OpenSans.variable}`}>
+      <body
+        className={`${unbounded.variable} ${robotoCondensed.variable} ${openSans.variable}`}
+      >
         <YandexMetrika />
         <Header />
         {children}
+        <Footer />
         <CookieBanner />
       </body>
     </html>
