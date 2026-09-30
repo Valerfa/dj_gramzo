@@ -35,7 +35,11 @@ export default function Header() {
           }
         `}
       >
-        <nav className="nav flex items-center justify-between px-4 md:px-4 lg:px-8 xl:px-12 py-3">
+        <nav
+          className={`nav flex items-center justify-between py-3 ${
+            scrolled ? "px-4" : "px-4 md:px-4 lg:px-8 xl:px-12"
+          }`}
+        >
           {/* ЛОГО */}
           <a href="/" className="flex items-center">
             <Image
