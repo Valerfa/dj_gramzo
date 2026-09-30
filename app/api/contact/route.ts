@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 // Получатель заявок. Берётся ТОЛЬКО из .env, фолбэк — на текущий рабочий ящик,
 // если переменная не задана в окружении (например, забыли положить .env на проде).
-const FALLBACK_MAIL_TO = "linkall_rus@mail.ru";
+const FALLBACK_MAIL_TO = "Gramzo33rus@gmail.com";
 
 type DeliveryResult = {
   ok: boolean;

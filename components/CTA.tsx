@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const MAX_URL =
-  "https://max.ru/u/f9LHodD0cOI50J_6W7Qn3gk0z1t8bR3Bh6tWeAuVO5xLz52vbgrjTOkKzvU";
+const TELEGRAM_URL = "https://t.me/djgramzo";
 
 export default function CTA() {
   return (
@@ -27,16 +26,16 @@ export default function CTA() {
           </Link>
 
           <a
-            href={MAX_URL}
+            href={TELEGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Написать в MAX"
+            aria-label="Написать в Telegram"
             className="inline-flex items-center gap-2 text-black hover:text-[var(--color-accent)] transition-colors"
-            title="Написать в MAX"
+            title="Написать в Telegram"
           >
             <Image
-              src="/icons/max-color.svg"
-              alt="MAX"
+              src="/icons/telegram.svg"
+              alt="Telegram"
               width={40}
               height={40}
               className="block"
